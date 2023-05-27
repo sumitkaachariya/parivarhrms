@@ -380,13 +380,13 @@ $("#total_member").on("keyup", function(){
     for(var i=1;i<=total;i++){
     
       html += '<div class="row">';
-        html += '<div class="col-8">';
+        html += '<div class="col-lg-8 col-12">';
           html += '<div class="form-group">';
             html += '<label for="sabhy_name">Member Name</label>';
             html += '<input type="text" data-id="save_sabhy_name_'+i+'" class="form-control" name="sabhy['+i+'][name]" id="sabhy_name" placeholder="Member Name" required="">';
           html += '</div>';
         html += '</div>';
-        html += '<div class="col-4">';
+        html += '<div class="col-lg-4 col-12">';
           html += '<div class="form-group">';
             html += '<label for="sabhy_edu">Member study</label>';
             html += '<input type="text" data-id="save_sabhy_edu_'+i+'" class="form-control" name="sabhy['+i+'][edu]" id="sabhy_edu" placeholder="Member study" required="">';
