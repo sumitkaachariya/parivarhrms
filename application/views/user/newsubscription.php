@@ -144,7 +144,7 @@
                             $formtitle = 'Notebook';
                           }
                           if($key == 3){
-                            $label = 'any';
+                            $label = 'other';
                             $formtitle = 'Other';
                           }
                       ?>
@@ -188,7 +188,7 @@
                             $formtitle = 'Notebook';
                           }
                           if($key == 3){
-                            $label = 'any';
+                            $label = 'other';
                             $formtitle = 'Other';
                           }
                       ?>
