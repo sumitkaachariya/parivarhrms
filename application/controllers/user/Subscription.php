@@ -47,8 +47,6 @@ class Subscription extends CI_Controller {
             $data['member_user'] = $member_user;
             $data['subscriptions'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $user_id),'*');
         }
-
-
         // echo "<pre>";print_r($data);
         // die;
         $this->load->view('dashboard/header',$data);
@@ -134,7 +132,9 @@ class Subscription extends CI_Controller {
         $current_user = $this->session->userdata('id'); 
         $member_user=  get_field('user_membership_plan',array('mobileno' => $this->input->post('mobileno')),'*');
 
-        
+        if($data['user']->role_id == 1){
+            $current_user = null;
+        }
         if(empty($member_user)){
             $membership_plan = array(
                 'name' => $this->input->post('name'),
