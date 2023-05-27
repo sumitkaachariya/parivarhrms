@@ -6,7 +6,7 @@
 <a href="<?php echo site_url('users');?>" class="nav-link <?php  if($segment == 'users'){ echo 'active';}?>">
   <i class="nav-icon fas fa-users"></i>
   <p>
-    users
+    Users
   </p>
 </a>
 </li>

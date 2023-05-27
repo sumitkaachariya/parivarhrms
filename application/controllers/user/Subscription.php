@@ -118,7 +118,7 @@ class Subscription extends CI_Controller {
         
         $file_name = $data['member_user']->name.'.pdf';
         // Output the generated PDF (1 = download and 0 = preview)
-        $this->dompdf->stream($file_name, array("Attachment"=>1));
+        $this->dompdf->stream($file_name, array("Attachment"=>0));
     }
 
     public function submit_subscription(){
@@ -204,26 +204,38 @@ class Subscription extends CI_Controller {
         }
     }
 
+    public function remark(){
+        $Common =  new Commn();
+        $data = array('remark'=>$this->input->post('remark_text'));
+        $result = $Common->update_data('user_membership_plan',$data,array('mobileno' => $this->input->post('mobileno')));
+        if($result){
+            $response = array('message'=> 'Successfully Addded Remark','code'=> 200);
+            echo json_encode($response);
+        }
+    }
+
     public function update_subscription(){
         $Common =  new Commn();
         $current_user = $this->session->userdata('id'); 
         $member_user=  get_field('user_membership_plan',array('mobileno' => $this->input->post('mobileno')),'*');
         $pay_list = $this->input->post('pay_list[]');
+        $data = $this->return_data();
         $status = 0;
             if(isset($pay_list)){
                 foreach ($pay_list as $key => $list) {
                     if($list != ''){
-                        $pay_id = get_field('type_pay_list',array('name' => $key),'id');
-                        $table = 'plan_member';
-                        $data = array(
+                        $pay_id = get_field('hrms_type_pay_list',array('name' => $key),'id');
+                        $table = 'hrms_user_plan';
+                        $res = array(
                             'type_pay' => $pay_id->id,
                             'total_amount' => $list,
-                            'member_user' => $member_user->id,
-                            'user_id ' => $current_user,
+                            'member_user_id' => $member_user->id,
+                            'staff_id ' => $member_user->hrms_staff_id,
+                            'hrms_user_id ' => $data['parivar']->id,
                             'no_of_entry' => 2,
                             'year' => date('Y'),
                         );
-                        $plan_member = $Common->insert_data('plan_member', $data);
+                        $plan_member = $Common->insert_data('hrms_user_plan', $res);
                         $status = 1;
                     }
                 }

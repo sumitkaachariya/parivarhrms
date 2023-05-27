@@ -200,8 +200,28 @@
             </form>
             
           <?php } ?>
-        </div>
+        </div>  
+      <?php if(isset($member_user)){ ?>
+        <div class="row">
+          <div class="col-12">
 
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><b>Remark</b></h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+              <div class="form-group">
+                      <textarea class="form-control" onkeyup="update_remark(this);" name="Remark_text" id="Remark_text" placeholder="Remark"><?php echo @$member_user->remark;?></textarea>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+      <?php } ?>
         <?php if(isset($subscriptions)){ ?>
         <div class="row">
           <div class="col-12">
@@ -307,7 +327,7 @@ $(".add_subscription_form #updated_data").submit(function(e){
     var form = $(this);
     $.ajax({
           type: "POST",
-          url: '<?php echo base_url() ?>'+'index.php/member/update_subscription',
+          url: '<?php echo base_url() ?>'+'subscription/update',
           data: form.serialize() + '&mobileno=' + mobileno,
           dataType: "json",
           success: function(data)
@@ -353,6 +373,27 @@ $("#total_member").on("keyup", function(){
    }
    $('.total_member_of_list').html(html);
 });
+
+function update_remark(remark){
+  var mobileno = "<?php echo @$_GET['mobileno'];?>";
+  $.ajax({
+      url:'<?php echo base_url();?>subscription/remark',
+      type:'post',
+      dataType: "json",
+      data:{mobileno:mobileno,remark_text:$(remark).val()},
+      success:function(res){
+        if(res.code == 200){
+          toastr.success(res.message);  
+        }
+        if(res.code == 400){
+          toastr.warning(res.message);     
+        }
+        if(res.code == 404){
+          toastr.error(res.message);     
+        }
+      }
+    });
+}
 
 function view_print_popup(){
 

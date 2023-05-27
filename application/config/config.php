@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-if($_SERVER['HTTP_HOST']=='localhost'){
+if($_SERVER['HTTP_HOST']=='localhost:8080'){
 	$config['base_url'] = 'http://localhost:8080/parivarhrms';
 }else{
 	$config['base_url'] = 'https://parivarhrms.jalmitinfotech.com/';

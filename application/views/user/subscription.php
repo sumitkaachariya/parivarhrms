@@ -19,7 +19,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -60,7 +59,7 @@
                     <td><?php echo date('d-m-Y',strtotime($subscription->created_at)); ?></td>
                     <td>
                       <a href="<?php echo site_url('subscription/new');?>?mobileno=<?php echo $subscription->mobileno?>"><i class="fa fa-eye"></i></a>
-                      <a href="#" data-toggle="modal" data-mobile_no data-target="#modal-default"><i class="fa fa-comment"></i></a>
+                      <a href="#" data-remark="<?php echo $subscription->remark;?>" data-mobileno="<?php echo $subscription->mobileno; ?>" data-toggle="modal" data-target="#modal-default"><i class="fa fa-comment remark"></i></a>
                     </td>
                   </tr>
                   <?php } }?>
@@ -97,6 +96,7 @@
             </div>
             <div class="modal-body">
               <div class="remark-body">
+                    <input type="hidden" name="remark_mobile_no" id="remark_mobile_no">
                     <div class="form-group">
                       <label for="Remark_text">Remark</label>
                       <textarea class="form-control" name="Remark_text" id="Remark_text" placeholder="Remark"></textarea>
@@ -105,7 +105,7 @@
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-primary save_remark"><span>Save changes</span></button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -118,4 +118,37 @@
   </div>
   <!-- /.content-wrapper -->
 
-<script></script>
+<script>
+  $(".remark").on("click", function(){
+    var mobileno =  $(this).parent('a').data('mobileno');
+    var remark =  $(this).parent('a').data('remark');
+    $('#remark_mobile_no').val(mobileno);
+    $('#Remark_text').val(remark);
+  });
+  $(".save_remark").on("click", function(){
+    var mobileno = $('#remark_mobile_no').val();
+    var remark_text = $('#Remark_text').val();
+    $(this).find('span').html('<i class="fa fa-spinner fa-spin"></i>');
+    $.ajax({
+      url:'<?php echo base_url();?>subscription/remark',
+      type:'post',
+      dataType: "json",
+      data:{mobileno:mobileno,remark_text:remark_text},
+      success:function(res){
+        if(res.code == 200){
+          $('.save_remark').find('span').html('Save changes');
+          toastr.success(res.message);  
+            setTimeout( function(){
+              window.location.reload();
+            }, 1000);
+        }
+        if(res.code == 400){
+          toastr.warning(res.message);     
+        }
+        if(res.code == 404){
+          toastr.error(res.message);     
+        }
+      }
+    })
+  });
+</script>
