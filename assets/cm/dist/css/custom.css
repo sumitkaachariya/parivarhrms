@@ -1,3 +1,9 @@
+body{
+  text-transform: capitalize;
+}
+select option {
+  text-transform: capitalize;
+}
 [class*=sidebar-dark-] {
     background-color: #000000d9;
 }

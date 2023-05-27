@@ -41,7 +41,7 @@ class Subscription extends CI_Controller {
         $mobileno = $this->input->get('mobileno');
         $member_user =  $Common->select_get_row_data('user_membership_plan',array('mobileno' => $mobileno),'*');
         $data['type_pay_list'] =  $Common->all_records('hrms_type_pay_list','*');
-        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*');
+        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');;
         if($member_user){
             $user_id = $member_user->id;
             $data['member_user'] = $member_user;

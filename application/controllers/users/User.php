@@ -25,7 +25,7 @@ class User extends CI_Controller {
     public function add_user(){
         $data = $this->return_data();
         $Common =  new Commn();
-        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*');
+        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');
         $data['roles'] = $Common->all_records('role','*');
         $this->load->view('dashboard/header',$data);
         $this->load->view('users/add_user',$data);

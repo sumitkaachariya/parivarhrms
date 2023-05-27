@@ -130,22 +130,27 @@
                         foreach($type_pay_list as $key => $pay_list){
 
                           $label = '';
+                          $formtitle = '';
                           if($key == 0){
                             $label = 'varshik_lavajam';
+                            $formtitle = 'lavajam';
                           }
                           if($key == 1){
                             $label = 'danbhet';
+                            $formtitle = 'Danbhet';
                           }
                           if($key == 2){
                             $label = 'notebook';
+                            $formtitle = 'Notebook';
                           }
                           if($key == 3){
                             $label = 'any';
+                            $formtitle = 'Other';
                           }
                       ?>
                       <div class="col-lg-6 col-12">
                         <div class="form-group">
-                            <label for="list_<?php echo $key;?>"><?php echo  $pay_list->name; ?></label>
+                            <label for="list_<?php echo $key;?>"><?php echo  $formtitle; ?></label>
                             <input type="text" class="form-control"  name="pay_list[<?php echo  $label; ?>]" id="list_<?php echo $key;?>" placeholder="Amount">
                           </div>
                         </div>
@@ -169,22 +174,27 @@
                         foreach($type_pay_list as $key => $pay_list){
 
                           $label = '';
+                          $formtitle = '';
                           if($key == 0){
                             $label = 'varshik_lavajam';
+                            $formtitle = 'lavajam';
                           }
                           if($key == 1){
                             $label = 'danbhet';
+                            $formtitle = 'Danbhet';
                           }
                           if($key == 2){
                             $label = 'notebook';
+                            $formtitle = 'Notebook';
                           }
                           if($key == 3){
                             $label = 'any';
+                            $formtitle = 'Other';
                           }
                       ?>
                       <div class="col-lg-6 col-12">
                         <div class="form-group">
-                            <label for="list_<?php echo $key;?>"><?php echo  $pay_list->name; ?></label>
+                            <label for="list_<?php echo $key;?>"><?php echo $formtitle; ?></label>
                             <input type="text" class="form-control"  name="pay_list[<?php echo  $pay_list->name; ?>]" id="list_<?php echo $key;?>" placeholder="Amount">
                           </div>
                         </div>
@@ -247,7 +257,23 @@
                   ?>
                   <tr>
                     <td><?php echo date('d-m-Y',strtotime($subscription->created_at)); ?></td>
-                    <td><?php echo get_field('hrms_type_pay_list',array('id' =>$subscription->type_pay),'name')->name; ?></td>
+                    <td>
+                      <?php 
+                        $name = get_field('hrms_type_pay_list',array('id' =>$subscription->type_pay),'name')->name;
+                        if($name == 'varshik_lavajam'){
+                          $formtitle = 'lavajam';
+                        }
+                        if($name == 'danbhet'){
+                          $formtitle = 'Danbhet';
+                        }
+                        if($name == 'notebook'){
+                          $formtitle = 'Notebook';
+                        }
+                        if($name == 'other'){
+                          $formtitle = 'Other';
+                        }
+                      ?>  
+                    <?php echo $formtitle; ?></td>
                     <td><?php echo '૱'.$subscription->total_amount; ?></td>
                   </tr>
                   <?php 
