@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Subscription extends CI_Controller {
+class Setting extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
@@ -30,7 +30,7 @@ class Subscription extends CI_Controller {
 
        
         $this->load->view('dashboard/header',$data);
-        $this->load->view('user/subscription',$data);
+        $this->load->view('settings/setting',$data);
         $this->load->view('dashboard/footer',$data);
     }
 
@@ -51,24 +51,6 @@ class Subscription extends CI_Controller {
         // die;
         $this->load->view('dashboard/header',$data);
         $this->load->view('user/newsubscription',$data);
-        $this->load->view('dashboard/footer',$data);
-    }
-    public function edit(){
-        $data = array('');
-        $data = $this->return_data();
-        $Common =  new Commn();
-        $mobileno = $this->input->get('mobileno');
-        $member_user =  $Common->select_get_row_data('user_membership_plan',array('mobileno' => $mobileno),'*');
-        $data['type_pay_list'] =  $Common->all_records('hrms_type_pay_list','*');
-        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');;
-        if($member_user){
-            $user_id = $member_user->id;
-            $data['member_user'] = $member_user;
-            $data['subscriptions'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $user_id),'*');
-            $data['member_list'] = $Common->where_all_records('hrms_member_of_user_home', array('member_user_id' => $user_id),'*');
-        }
-        $this->load->view('dashboard/header',$data);
-        $this->load->view('user/edit',$data);
         $this->load->view('dashboard/footer',$data);
     }
 
@@ -262,61 +244,6 @@ class Subscription extends CI_Controller {
                 echo json_encode(array('status' => 200,'response'=>'SuccessFully Add Memebrship'));
             }
 
-    }
-
-    public function update_details_subscription(){
-    
-        $Common =  new Commn();
-        $current_user = $this->session->userdata('id'); 
-        $member_user=  get_field('user_membership_plan',array('mobileno' => $this->input->post('mobileno')),'*');
-        $pay_list = $this->input->post('pay_list[]');
-        $data = $this->return_data();
-
-
-
-     $details = array(
-        'name' => $this->input->post('name'),
-        'address' => $this->input->post('address'),
-        'gam_id' => $this->input->post('gam'),
-        'edu_no_of_child' => $this->input->post('no_of_child_std'),
-        'no_of_result' => $this->input->post('submit_result'),
-        'pay_of_notebook' => $this->input->post('notebook'),
-        'no_of_home_person' => $this->input->post('total_member')
-     );
-     $Common->update_data('user_membership_plan', $details, array('mobileno'=>$this->input->post('mobileno')));
-     $sabhylist = $this->input->post('sabhy[]');
-
-     if(isset($sabhylist)){
-        foreach ($sabhylist as $key => $sabhy) {
-
-            if($key == "null"){
-                $datass = array(
-                    'member_name' => $sabhy['name'],
-                    'member_edu' => $sabhy['edu'],
-                    'member_user_id' => $member_user->id,
-                    'staff_id ' => $member_user->hrms_staff_id,
-                    'hrms_user_id ' =>$data['parivar']->id,
-                );
-                $Common->insert_data('hrms_member_of_user_home', $datass);
-                $status = 1;
-            }else{
-                $datass = array(
-                    'member_name' => $sabhy['name'],
-                    'member_edu' => $sabhy['edu'],
-                    'member_user_id' => $member_user->id,
-                    'staff_id ' => $member_user->hrms_staff_id,
-                    'hrms_user_id ' =>$data['parivar']->id,
-                );
-                $Common->update_data('hrms_member_of_user_home', $datass, array('id'=>$key));
-                $status = 1;
-            }
-        }
-    }else{
-        $status = 1;
-    }
-    if($status == 1){
-        echo json_encode(array('status' => 200,'response'=>'SuccessFully Update Details'));
-    }
     }
 
     

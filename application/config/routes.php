@@ -62,10 +62,14 @@ $route['subscription'] = 'user/Subscription';
 $route['subscription/update'] = 'user/Subscription/update_subscription';
 $route['subscription/remark'] = 'user/Subscription/remark';
 $route['subscription/new'] = 'user/Subscription/new';
+$route['subscription/edit'] = 'user/Subscription/edit';
+$route['subscription/update_details_subscription'] = 'user/Subscription/update_details_subscription';
 $route['subscription/printview'] = 'user/Subscription/printview';
 $route['subscription/submit_subscription'] = 'user/Subscription/submit_subscription';
 
 $route['notebook'] = 'notebook/Notebook';
+
+$route['settings'] = 'settings/Setting';
 
 $route['logout'] = 'dashboard/Dashboard/logout';
 $route['404_override'] = '';

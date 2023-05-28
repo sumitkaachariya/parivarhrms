@@ -58,6 +58,7 @@
                     <td><?php echo get_field('gam',array('id' => $subscription->gam_id),'name')->name;?></td>
                     <td><?php echo date('d-m-Y',strtotime($subscription->created_at)); ?></td>
                     <td>
+                      <a href="<?php echo site_url('subscription/edit');?>?mobileno=<?php echo $subscription->mobileno?>"><i class="fa fa-edit"></i></a>
                       <a href="<?php echo site_url('subscription/new');?>?mobileno=<?php echo $subscription->mobileno?>"><i class="fa fa-eye"></i></a>
                       <a href="#" data-remark="<?php echo $subscription->remark;?>" data-mobileno="<?php echo $subscription->mobileno; ?>" data-toggle="modal" data-target="#modal-default"><i class="fa fa-comment remark"></i></a>
                     </td>

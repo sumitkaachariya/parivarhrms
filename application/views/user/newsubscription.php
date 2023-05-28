@@ -44,9 +44,10 @@
         <?php if(@$_GET['mobileno']){?>
         <div class="row">
           <div class="col-12 text-right p-3">
-             <button class="btn btn-primary add_subscription_form_btn">Add Subscription Form</button>
+             <button class="btn btn-primary add_subscription_form_btn mb-1">Add Subscription Form</button>
              <?php if(isset($subscriptions)){?>
-              <a href="<?php echo site_url('subscription/printview?mobileno=')?><?php echo $_GET["mobileno"];?>"class="print_btn btn btn-primary"><i class="fa fa-print"></i> Print</a>
+              <a href="<?php echo site_url('subscription/edit?mobileno=')?><?php echo $_GET["mobileno"];?>"class="print_btn btn btn-primary mb-1"><i class="fa fa-edit"></i> Edit <Form></Form></a>
+              <a href="<?php echo site_url('subscription/printview?mobileno=')?><?php echo $_GET["mobileno"];?>"class="print_btn btn btn-primary mb-1"><i class="fa fa-print"></i> Print</a>
              <?php }  ?>
           </div>
         </div>
@@ -151,7 +152,7 @@
                       <div class="col-lg-6 col-12">
                         <div class="form-group">
                             <label for="list_<?php echo $key;?>"><?php echo  $formtitle; ?></label>
-                            <input type="text" class="form-control"  name="pay_list[<?php echo  $label; ?>]" id="list_<?php echo $key;?>" placeholder="Amount">
+                            <input type="number" class="form-control"  name="pay_list[<?php echo  $label; ?>]" id="list_<?php echo $key;?>" placeholder="Amount">
                           </div>
                         </div>
                       <?php }}?>

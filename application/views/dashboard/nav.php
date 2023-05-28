@@ -31,3 +31,13 @@
 </a>
 </li>
 <?php }?>
+<?php if($user->role_id == 1 || $user->role_id == 2){ ?>
+<li class="nav-item">
+<a href="<?php echo site_url('settings');?>" class="nav-link <?php  if($segment == 'settings'){ echo 'active';}?>">
+  <i class="nav-icon fas fa-cog"></i>
+  <p>
+    Settings
+  </p>
+</a>
+</li>
+<?php }?>
