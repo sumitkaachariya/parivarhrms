@@ -1,7 +1,10 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="<?php echo base_url();?>"><b>PARIVAR</b>HRMS</a>
+    <a href="<?php echo base_url();?>">
+      <img src="<?php echo base_url();?>assets/image/logo_1.png" style="max-width: 250px;">
+    <!-- <b>PARIVAR</b>HRMS -->
+  </a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

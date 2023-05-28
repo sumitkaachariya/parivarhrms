@@ -53,3 +53,9 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting_asc:before
     border: 1px solid #ed2c23;
     color: #ed2c23 !important;
 }
+.page-link{
+  color: #ed2c23;
+}
+.page-link:hover{
+  color: #000;
+}

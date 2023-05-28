@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php echo $parivar->name; ?> <?php echo $user->role_name;?> | <?php echo $segment;?></title>
-
+  <link rel="icon" type="image/x-icon" href="<?php echo base_url();?>assets/image/fav.png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -75,7 +75,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?php echo site_url('dashboard');?>" class="brand-link text-center">
-     <b>PARIVAR</b>HRMS
+    <img src="<?php echo base_url();?>assets/image/logo.png" style="max-width: 200px;">
+     <!-- <b>PARIVAR</b>HRMS -->
     </a>
 
     <!-- Sidebar -->
