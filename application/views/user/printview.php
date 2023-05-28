@@ -33,7 +33,7 @@
             <tr>
                 <th style="width:250px;background-color:#ddd;">Name</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><?php echo $member_user->name;?></td>
+                <td><b><?php echo $member_user->name;?></b></td>
             </tr>
             <tr>
                 <th style="background-color:#ddd;">Address</th>
@@ -81,19 +81,19 @@
                     </tr>
                     <tr>
                         <th style="background-color:#ddd;border-right:1px solid;">Annual Allowance</th>
-                        <td><?php echo $amount['varshik_lavajam']; ?></td>
+                        <td><b><?php echo $amount['varshik_lavajam']; ?></b></td>
                     </tr>
                     <tr>
                         <th style="background-color:#ddd;border-right:1px solid;">Donation</th>
-                        <td><?php echo $amount['danbhet']; ?></td>
+                        <td><b><?php echo $amount['danbhet']; ?></b></td>
                     </tr>
                     <tr>
                         <th style="background-color:#ddd;border-right:1px solid;">Notebook</th>
-                        <td><?php echo $amount['notebook']; ?></td>
+                        <td><b><?php echo $amount['notebook']; ?></b></td>
                     </tr>
                     <tr>
                         <th style="background-color:#ddd;border-right:1px solid;border-bottom:1px solid;">Other</th>
-                        <td style="border-bottom:1px solid;"><?php echo $amount['other']; ?></td>
+                        <td style="border-bottom:1px solid;"><b><?php echo $amount['other']; ?></b></td>
                     </tr>
                     <tr style="height:10px;background-color:#ddd;">
                         <td colspan="2"><div style="padding:10px;"></div></td>
