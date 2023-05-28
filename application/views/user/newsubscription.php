@@ -56,33 +56,29 @@
         <div class="add_subscription_form" style="display:none;">
           <?php if(!isset($subscriptions)){?>
             <form id="add_new_subscripatiob_form_Data" method="post">
-              <div class="card">
-                  <div class="card-body">
-                    <div class="row"> 
 
-                      <div class="col-lg-6 col-12">
-                          <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control"  name="name" id="name" placeholder="Name" required>
-                          </div>
-                      </div>
+              <div class="row">
+                <div class="col-lg-6 col-12">
+                  <div class="card">
+                    <div class="card-header">Member Details</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control"  name="name" id="name" placeholder="Name" required>
+                        </div>
 
-                      <div class="col-lg-6 col-12">
-                          <div class="form-group">
-                            <label for="mobile_no">Mobile No</label>
-                            <input type="text" class="form-control" pattern="[789][0-9]{9}" value="<?php echo @$_GET['mobileno'];?>" name="mobile_no" id="mobile_no" placeholder="Mobile No" <?php if($_GET['mobileno']){ echo ''; }?> required>
-                          </div>
-                      </div>
+                        <div class="form-group">
+                          <label for="mobile_no">Mobile No</label>
+                          <input type="text" class="form-control" pattern="[789][0-9]{9}" value="<?php echo @$_GET['mobileno'];?>" name="mobile_no_disbaled" id="mobile_no" placeholder="Mobile No" <?php if(@$_GET['mobileno']){ echo 'disabled'; }?> required>
+                          <input type="hidden" class="form-control" pattern="[789][0-9]{9}" value="<?php echo @$_GET['mobileno'];?>" name="mobile_no" id="mobile_no" placeholder="Mobile No" <?php if(@$_GET['mobileno']){ echo 'disabled'; }?> required>
+                        </div>
 
-                      <div class="col-lg-12 col-12">
-                          <div class="form-group">
+                        <div class="form-group">
                             <label for="address">Address</label>
                             <textarea class="form-control"  name="address" id="address" placeholder="Address" required></textarea>
-                          </div>
-                      </div>
-                      
-                      <div class="col-lg-4 col-12">
-                          <div class="form-group">
+                        </div>
+
+                        <div class="form-group">
                             <label for="gam">Gam</label>
                             <select class="form-control" name="gam" id="gam" required>
                               <option value="">Select Gam</option>
@@ -92,77 +88,72 @@
                                 <option value="<?php echo $gam->id;?>" <?php if(@$user->gam == 'સેંદરડા'){ echo 'selected'; }?>><?php echo $gam->name;?></option>
                               <?php }}?>
                             </select>
-                          </div>
-                      </div>
-
-                      <div class="col-lg-4 col-12">
-                          <div class="form-group">
+                        </div>
+    
+                        <div class="form-group">
                             <label for="no_of_child_std">Number of children studying</label>
                             <input type="number" class="form-control"  name="no_of_child_std" id="no_of_child_std" placeholder="Number of children studying" required>
-                          </div>
-                      </div>
+                        </div>  
 
-                      <div class="col-lg-4 col-12">
-                          <div class="form-group">
+                        <div class="form-group">
                             <label for="submit_result">Deposited result</label>
                             <input type="number" class="form-control"  name="submit_result" id="submit_result" placeholder="Deposited result" required>
-                          </div>
-                      </div>
-
-                      <div class="col-lg-6 col-12">
-                          <div class="form-group">
+                        </div>    
+                        
+                        <div class="form-group">
                             <label for="notebook">A given notebook</label>
                             <input type="number" class="form-control"  name="notebook" id="notebook" placeholder="A given notebook" required>
-                          </div>
-                      </div>
+                        </div>
 
-                      <div class="col-lg-6 col-12">
-                          <div class="form-group">
+                        <div class="form-group">
                             <label for="total_member">Total member</label>
                             <input type="number" class="form-control"  name="total_member" id="total_member" placeholder="Total member" required>
-                          </div>
-                      </div>
+                        </div>
+                      
+                        <?php if(isset($type_pay_list)){ 
+                          foreach($type_pay_list as $key => $pay_list){
 
-                      <div class="col-lg-12 col-12">
-                        <div class="total_member_of_list"></div>
-                      </div>
-
-                      <?php if(isset($type_pay_list)){ 
-                        foreach($type_pay_list as $key => $pay_list){
-
-                          $label = '';
-                          $formtitle = '';
-                          if($key == 0){
-                            $label = 'varshik_lavajam';
-                            $formtitle = 'lavajam';
-                          }
-                          if($key == 1){
-                            $label = 'danbhet';
-                            $formtitle = 'Danbhet';
-                          }
-                          if($key == 2){
-                            $label = 'notebook';
-                            $formtitle = 'Notebook';
-                          }
-                          if($key == 3){
-                            $label = 'other';
-                            $formtitle = 'Other';
-                          }
-                      ?>
-                      <div class="col-lg-6 col-12">
+                            $label = '';
+                            $formtitle = '';
+                            if($key == 0){
+                              $label = 'varshik_lavajam';
+                              $formtitle = 'lavajam';
+                            }
+                            if($key == 1){
+                              $label = 'danbhet';
+                              $formtitle = 'Danbhet';
+                            }
+                            if($key == 2){
+                              $label = 'notebook';
+                              $formtitle = 'Notebook';
+                            }
+                            if($key == 3){
+                              $label = 'other';
+                              $formtitle = 'Other';
+                            }
+                        ?>
                         <div class="form-group">
                             <label for="list_<?php echo $key;?>"><?php echo  $formtitle; ?></label>
                             <input type="number" class="form-control"  name="pay_list[<?php echo  $label; ?>]" id="list_<?php echo $key;?>" placeholder="Amount">
-                          </div>
                         </div>
                       <?php }}?>
+
+                      
+
+                    </div>
+                    <div class="card-footer">
+                      <button class="btn btn-success save_sub_btn">SAVE</button>
                     </div>
                   </div>
-                  <div class="card-footer">
-                    <div class="col-lg-6 col-12">
-                        <button class="btn btn-success save_sub_btn">SAVE</button>
-                      </div>
-                  </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="card">
+                        <div class="card-header">Member List</div>
+                        <div class="card-body">
+                          <div class="total_member_of_list"></div>
+                        </div>
+                    </div>
+                </div>
               </div>
             </form>
           <?php }else{ ?>
@@ -322,11 +313,12 @@
 $(".add_subscription_form #add_new_subscripatiob_form_Data").submit(function(e){
   e.preventDefault(); 
   $(".save_sub_btn").prop("disabled", true);
+  var mobileno = "<?php echo @$_GET['mobileno'];?>";
   var form = $(this);
   $.ajax({
         type: "POST",
         url: '<?php echo base_url() ?>'+'index.php/subscription/submit_subscription',
-        data: form.serialize(),
+        data: form.serialize() + '&mobile_no=' + mobileno,
         dataType: "json",
         success: function(data)
         {
@@ -375,8 +367,7 @@ $("#total_member").on("keyup", function(){
    var html = '';
 
    if(total > 0){
-    html +='<div class="card">';
-    html += '<div class="card-body">';
+   
     $('.total_member_of_list').empty();
     for(var i=1;i<=total;i++){
     
@@ -395,8 +386,6 @@ $("#total_member").on("keyup", function(){
         html += '</div>';
       html += '</div>';
     }
-    html += '</div>';
-    html += '</div>';
    }
    $('.total_member_of_list').html(html);
 });

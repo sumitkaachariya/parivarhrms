@@ -1,6 +1,9 @@
 body{
   text-transform: capitalize;
 }
+select {
+  text-transform: capitalize;
+}
 select option {
   text-transform: capitalize;
 }
