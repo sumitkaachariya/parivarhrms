@@ -384,7 +384,7 @@ $("#total_member").on("keyup", function(){
             html += '<input type="text" data-id="save_sabhy_edu_'+i+'" class="form-control" name="sabhy['+i+'][edu]" id="sabhy_edu" placeholder="Member study" required="">';
           html += '</div>';
         html += '</div>';
-      html += '</div>';
+      html += '</div><hr>';
     }
    }
    $('.total_member_of_list').html(html);
