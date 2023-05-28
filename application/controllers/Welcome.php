@@ -25,7 +25,7 @@ class Welcome extends CI_Controller {
         $Common =  new Commn();
         $id = $this->session->userdata('id');
         $result = $Common->get_row_data('hrms_user', array('id' => $id));
-        if(isset($result) && !empty($id)){
+        if(!empty($id)){
             redirect('dashboard');
         }
     }
