@@ -77,9 +77,6 @@
                         </div>
 
                     </div>
-                    <div class="card-footer">
-                            <button class="btn btn-success save_sub_btn">Update</button>
-                  </div>
                 </div>
             </div>
 
@@ -109,8 +106,14 @@
                         <?php $i++;} } ?>
                         <div class="total_member_of_list"></div>
                     </div>
-                    <div class="card-footer"></div>
                 </div>
+            </div>
+            <div class="col-lg-12 col-12">
+              <div class="card">
+                  <div class="card-footer text-center">
+                      <button class="btn btn-success save_sub_btn">Update</button>
+                  </div>
+              </div>
             </div>
        </div> 
     </form>

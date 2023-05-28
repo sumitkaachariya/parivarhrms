@@ -141,9 +141,6 @@
                       
 
                     </div>
-                    <div class="card-footer">
-                      <button class="btn btn-success save_sub_btn">SAVE</button>
-                    </div>
                   </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -153,6 +150,13 @@
                           <div class="total_member_of_list"></div>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-12 col-12">
+                  <div class="card">
+                      <div class="card-footer text-center">
+                        <button class="btn btn-success save_sub_btn">SAVE</button>
+                      </div>
+                  </div>
                 </div>
               </div>
             </form>
@@ -374,14 +378,14 @@ $("#total_member").on("keyup", function(){
       html += '<div class="row">';
         html += '<div class="col-lg-8 col-12">';
           html += '<div class="form-group">';
-            html += '<label for="sabhy_name">Member Name</label>';
-            html += '<input type="text" data-id="save_sabhy_name_'+i+'" class="form-control" name="sabhy['+i+'][name]" id="sabhy_name" placeholder="Member Name" required="">';
+            html += '<label for="sabhy_name_'+i+'">Member Name '+i+'</label>';
+            html += '<input type="text" data-id="save_sabhy_name_'+i+'" class="form-control" name="sabhy['+i+'][name]" id="sabhy_name_'+i+'" placeholder="Member Name" required="">';
           html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-4 col-12">';
           html += '<div class="form-group">';
-            html += '<label for="sabhy_edu">Member study</label>';
-            html += '<input type="text" data-id="save_sabhy_edu_'+i+'" class="form-control" name="sabhy['+i+'][edu]" id="sabhy_edu" placeholder="Member study" required="">';
+            html += '<label for="sabhy_edu_'+i+'">Member study '+i+'</label>';
+            html += '<input type="text" data-id="save_sabhy_edu_'+i+'" class="form-control" name="sabhy['+i+'][edu]" id="sabhy_edu_'+i+'" placeholder="Member study" required="">';
           html += '</div>';
         html += '</div>';
       html += '</div><hr>';
