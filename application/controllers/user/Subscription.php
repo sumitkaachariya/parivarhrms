@@ -311,6 +311,7 @@ class Subscription extends CI_Controller {
                 $datass = array(
                     'member_name' => $sabhy['name'],
                     'member_age' => $sabhy['age'],
+                    'year' => date('Y'),
                     'member_edu' => empty($sabhy['std']) ? null : $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
@@ -335,6 +336,7 @@ class Subscription extends CI_Controller {
                 $datass = array(
                     'member_name' => $sabhy['name'],
                     'member_age' => $sabhy['age'],
+                    'year' => date('Y'),
                     'member_edu' => empty($sabhy['std']) ? null : $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
