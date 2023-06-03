@@ -213,12 +213,14 @@ $("#total_member").on("keyup", function(){
    $('.total_member_of_list').html(html);
    all_counting_form(total_study_count_member);
 });
-
+$("#update_details_form .custom-control-input:checked").each(function(){
+    total_study_count_member = (total_study_count_member + 1);
+});
 function check_total_study_count_member(t){
   if ($(t).is(':checked')) {
       total_study_count_member = (total_study_count_member + 1); 
   }else{
-    total_study_count_member = (total_study_count_member - 1); 
+    total_study_count_member = (total_study_count_member - 1);
   }
   all_counting_form(total_study_count_member);
 }

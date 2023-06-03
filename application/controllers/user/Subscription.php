@@ -349,6 +349,12 @@ class Subscription extends CI_Controller {
                             );
                             $present_member_list = $Common->insert_data('hrms_member_eduction_list', $present_member);
                         }
+                    }else{
+                        $get_record = get_field('hrms_member_eduction_list',array('home_member_id' => $key,'year' => date('Y')),'*');
+                        if($get_record){
+                            $where = array('id' => $get_record->id);
+                            $Common->delete_data('hrms_member_eduction_list', $where);
+                        }
                     }
                 $status = 1;
             }
