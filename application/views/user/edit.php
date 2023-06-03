@@ -106,7 +106,7 @@
                             </div>
                             <div class="col-lg-12 col-12">
                              <div class="custom-control custom-checkbox">
-                                <input <?php if($memberlist->present_member == 1){ echo 'checked'; } ?> onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_<?php echo $i;?>" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[<?php echo $i;?>][present]" id="sabhy_present_<?php echo $i;?>">
+                                <input <?php if($memberlist->present_member == 1){ echo 'checked'; } ?> onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_<?php echo $i;?>" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[<?php echo $memberlist->id;?>][present]" id="sabhy_present_<?php echo $i;?>">
                                 <label class="custom-control-label" for="sabhy_present_<?php echo $i;?>+'">Present Study Member <?php echo $i;?></label>
                               </div>
                             </div>
