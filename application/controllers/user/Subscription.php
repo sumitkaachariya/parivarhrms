@@ -336,12 +336,11 @@ class Subscription extends CI_Controller {
                     'staff_id ' => $member_user->hrms_staff_id,
                     'hrms_user_id ' =>$data['parivar']->id,
                 );
-                $Common->update_data('hrms_member_of_user_home', $datass, array('id'=>$key));
-                $last_user_home_id =  $this->db->insert_id();   
+                $Common->update_data('hrms_member_of_user_home', $datass, array('id'=>$key)); 
                     if(isset($sabhy['present']) && $sabhy['present'] == 1){
                         $present_member = array(
                             'year' => date('Y'),
-                            'home_member_id' => $last_user_home_id,
+                            'home_member_id' => $key,
                             'member_user_id' => $member_user->id,
                             'staff_id ' => $member_user->hrms_staff_id,
                             'hrms_user_id ' =>$data['parivar']->id,
