@@ -311,7 +311,7 @@ class Subscription extends CI_Controller {
                 $datass = array(
                     'member_name' => $sabhy['name'],
                     'member_age' => $sabhy['age'],
-                    'member_edu' => $sabhy['std'],
+                    'member_edu' => empty($sabhy['std']) ? null : $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
@@ -321,7 +321,7 @@ class Subscription extends CI_Controller {
                 $last_user_home_id =  $this->db->insert_id();   
                     if(isset($sabhy['present']) && $sabhy['present'] == 1){
                         $present_member = array(
-                            'std' => $sabhy['std'],
+                            'std' => empty($sabhy['std']) ? null : $sabhy['std'],
                             'year' => date('Y'),
                             'home_member_id' => $last_user_home_id,
                             'member_user_id' => $member_user->id,
@@ -335,7 +335,7 @@ class Subscription extends CI_Controller {
                 $datass = array(
                     'member_name' => $sabhy['name'],
                     'member_age' => $sabhy['age'],
-                    'member_edu' => $sabhy['std'],
+                    'member_edu' => empty($sabhy['std']) ? null : $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
@@ -346,7 +346,7 @@ class Subscription extends CI_Controller {
                         $get_record = get_field('hrms_member_eduction_list',array('home_member_id' => $key,'year' => date('Y')),'*');
                         if(!$get_record){
                             $present_member = array(
-                                'std' => $sabhy['std'],
+                                'std' => empty($sabhy['std']) ? null : $sabhy['std'],
                                 'year' => date('Y'),
                                 'home_member_id' => $key,
                                 'member_user_id' => $member_user->id,
