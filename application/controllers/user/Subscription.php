@@ -338,14 +338,17 @@ class Subscription extends CI_Controller {
                 );
                 $Common->update_data('hrms_member_of_user_home', $datass, array('id'=>$key)); 
                     if(isset($sabhy['present']) && $sabhy['present'] == 1){
-                        $present_member = array(
-                            'year' => date('Y'),
-                            'home_member_id' => $key,
-                            'member_user_id' => $member_user->id,
-                            'staff_id ' => $member_user->hrms_staff_id,
-                            'hrms_user_id ' =>$data['parivar']->id,
-                        );
-                        $present_member_list = $Common->insert_data('hrms_member_eduction_list', $present_member);
+                        $get_record = get_field('hrms_member_eduction_list',array('home_member_id' => $key,'year' => date('Y')),'*');
+                        if(!$get_record){
+                            $present_member = array(
+                                'year' => date('Y'),
+                                'home_member_id' => $key,
+                                'member_user_id' => $member_user->id,
+                                'staff_id ' => $member_user->hrms_staff_id,
+                                'hrms_user_id ' =>$data['parivar']->id,
+                            );
+                            $present_member_list = $Common->insert_data('hrms_member_eduction_list', $present_member);
+                        }
                     }
                 $status = 1;
             }
