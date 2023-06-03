@@ -92,17 +92,20 @@
     
                         <div class="form-group">
                             <label for="no_of_child_std">Number of children studying</label>
-                            <input type="number" class="form-control"  name="no_of_child_std" id="no_of_child_std" placeholder="Number of children studying" required>
+                            <input type="number" class="form-control"  id="no_of_child_std" placeholder="Number of children studying" value="0" required disabled>
+                            <input type="hidden" class="form-control"  name="no_of_child_std" id="no_of_child_std_val" value="0" placeholder="Number of children studying">
                         </div>  
 
                         <div class="form-group">
                             <label for="submit_result">Deposited result</label>
-                            <input type="number" class="form-control"  name="submit_result" id="submit_result" placeholder="Deposited result" required>
+                            <input type="number" class="form-control" value="0" id="submit_result" placeholder="Deposited result" required disabled>
+                            <input type="hidden" class="form-control" value="0" name="submit_result" id="submit_result_val" placeholder="Deposited result">
                         </div>    
                         
                         <div class="form-group">
                             <label for="notebook">A given notebook</label>
-                            <input type="number" class="form-control"  name="notebook" id="notebook" placeholder="A given notebook" required>
+                            <input type="number" class="form-control" value="0" id="notebook" placeholder="A given notebook" disabled required>
+                            <input type="hidden" class="form-control"  name="notebook" id="notebook_val" placeholder="A given notebook">
                         </div>
 
                         <div class="form-group">
@@ -228,6 +231,75 @@
           <!-- /.col -->
         </div>
       <?php } ?>
+
+      <!-- education list -->
+      <?php if(isset($eduction_list)){?>
+        <div class="row education_list_row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><b>Education Member List - <?php echo date('Y'); ?></b></h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Standard</th> 
+                      <th>Percentage</th> 
+                      <th>Year</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($eduction_list as $key => $eduction) { 
+                      $name = get_field('hrms_member_of_user_home',array('id' =>$eduction->home_member_id),'member_name')->member_name;  
+                    ?>
+                    <tr class="eduction_parent_row">
+                      <td>
+                        <div class="form-group">
+                          <input type="text" disabled value="<?php echo $name;?>"  class="form-control" required>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <select class="form-control update_std" required>
+                            <option value="">Select Standard</option>
+                            <?php if(isset($educations)){
+                              foreach ($educations as $key => $edu) {?>
+                                  <option <?php if($eduction->std == $edu->id){ echo 'selected'; }?> value="<?php echo $edu->id;?>"><?php echo $edu->name;?></option>
+                            <?php }}  ?>
+                          </select>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="number" value="<?php echo $eduction->percentage; ?>" name="percentage" class="form-control percentage" required>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <select class="form-control update_year" required>
+                            <option <?php if($eduction->year == date('Y')){ echo 'selected'; }?> value="<?php echo date('Y'); ?>"><?php echo date('Y'); ?></option>
+                          </select>
+                        </div>
+                      </td>
+                      <td>
+                      <!-- update_edu_btn -->
+                        <button data-member_user_id="<?php echo $eduction->member_user_id; ?>" data-home_member_id="<?php echo $eduction->home_member_id; ?>" data-id="<?php echo $eduction->id; ?>" class="btn btn-primary update_edu_btn">Update</button>
+                      </td>
+                    </tr>
+                    <?php }?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      <?php }?>
         <?php if(isset($subscriptions)){ ?>
         <div class="row">
           <div class="col-12">
@@ -243,7 +315,8 @@
                   <tr>
                     <th>Date</th>
                     <th>Type of Pay</th>
-                    <th>Amoount</th>
+                    <th>Amount</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -270,7 +343,8 @@
                         }
                       ?>  
                     <?php echo $formtitle; ?></td>
-                    <td><?php echo '૱'.$subscription->total_amount; ?></td>
+                    <td><?php echo '₹'.$subscription->total_amount; ?></td>
+                    <td><a class="delete_subscripation" data-id="<?php echo $subscription->id; ?>" href="javascript:void(0)"><i class="fa fa-trash"></i></a></td>
                   </tr>
                   <?php 
                     } }?>
@@ -279,7 +353,8 @@
                   <tr>
                     <th>Date</th>
                     <th>Type of Pay</th>
-                    <th>Amoount</th>
+                    <th>Amount</th>
+                    <th>Action</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -300,6 +375,9 @@
   <!-- /.content-wrapper -->
 <style>
   .add_subscription_form.add_subscription_form_active {display: block !important;}
+  @media(max-width:767px){
+    .education_list_row .form-control{width: inherit;}
+  }
 </style>
   <script>
     $(".add_subscription_form_btn").on("click", function(){
@@ -365,16 +443,15 @@ $(".add_subscription_form #updated_data").submit(function(e){
   toastr.error('Please fill any Amount of Subscription');
  }
 });
-
+var total_study_count_member = 0;
 $("#total_member").on("keyup", function(){
    var total = $(this).val();
    var html = '';
-
+   total_study_count_member = 0;
    if(total > 0){
    
     $('.total_member_of_list').empty();
     for(var i=1;i<=total;i++){
-    
       html += '<div class="row">';
         html += '<div class="col-lg-8 col-12">';
           html += '<div class="form-group">';
@@ -384,16 +461,113 @@ $("#total_member").on("keyup", function(){
         html += '</div>';
         html += '<div class="col-lg-4 col-12">';
           html += '<div class="form-group">';
-            html += '<label for="sabhy_edu_'+i+'">Member study '+i+'</label>';
-            html += '<input type="text" data-id="save_sabhy_edu_'+i+'" class="form-control" name="sabhy['+i+'][edu]" id="sabhy_edu_'+i+'" placeholder="Member study" required="">';
+            html += '<label for="sabhy_age_'+i+'">Member Age '+i+'</label>';
+            html += '<input type="number" data-id="save_sabhy_age_'+i+'" class="form-control" name="sabhy['+i+'][age]" id="sabhy_age_'+i+'" placeholder="Member Age" required="">';
+          html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12 col-12">';
+          html += '<div class="custom-control custom-checkbox">';
+            html += '<input onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_'+i+'" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy['+i+'][present]" id="sabhy_present_'+i+'">';
+            html += '<label class="custom-control-label" for="sabhy_present_'+i+'">Present Study Member'+i+'</label>';
           html += '</div>';
         html += '</div>';
       html += '</div><hr>';
     }
    }
    $('.total_member_of_list').html(html);
+   all_counting_form(total_study_count_member);
 });
 
+$(".update_edu_btn").click(function(e){
+
+  var id = $(this).data('id');
+  var member_user_id = $(this).data('member_user_id');
+  var home_member_id=  $(this).data('home_member_id');
+  var std = $(this).parents('.eduction_parent_row').find('.update_std option:selected').val();
+  var percentage = $(this).parents('.eduction_parent_row').find('.percentage').val();
+  var year = $(this).parents('.eduction_parent_row').find('.update_year option:selected').val();
+  var that = $(this);
+  if(std == ''){
+    toastr.warning('Please Select Standard');
+    $(this).parents('.eduction_parent_row').find('.update_std').focus();
+    return false;
+  }
+  if(percentage == ''){
+    toastr.warning('Please Enter Percentage');
+    $(this).parents('.eduction_parent_row').find('.percentage').focus();
+    return false;
+  }
+  if(year == ''){
+    toastr.warning('Please Select Year');
+    $(this).parents('.eduction_parent_row').find('.update_year option:selected').focus();
+    return false;
+  }
+
+  $(this).prop('disabled', true);
+  $(this).html('<i class="fa fa-spinner fa-spin"></i>');
+
+  $.ajax({
+      url:'<?php echo base_url();?>subscription/update_edu',
+      type:'post',
+      dataType: "json",
+      data:{member_user_id:member_user_id,home_member_id:home_member_id,std:std,percentage:percentage,year:year},
+      success:function(res){
+        if(res.code == 200){
+          toastr.success(res.message);  
+        }
+        if(res.code == 400){
+          toastr.warning(res.message);     
+        }
+        if(res.code == 404){
+          toastr.error(res.message);     
+        }
+        $(that).prop('disabled', false);
+        $(that).html('Update');
+      }
+    });
+});
+
+$(".delete_subscripation").on("click", function(){
+  var id = $(this).data('id');
+  if (confirm('Are You Sure Delete Record?')) {
+      $.ajax({
+        url:'<?php echo base_url();?>subscription/delete_subscrption_rec',
+        type:'post',
+        dataType: "json",
+        data:{id:id},
+        success:function(res){
+          if(res.code == 200){
+            toastr.success(res.message);  
+          }
+          if(res.code == 400){
+            toastr.warning(res.message);     
+          }
+          if(res.code == 404){
+            toastr.error(res.message);     
+          }
+          setTimeout(function(){ location.reload(); },300); 
+        }
+      });
+    }
+});
+function check_total_study_count_member(t){
+  if ($(t).is(':checked')) {
+      total_study_count_member = (total_study_count_member + 1); 
+  }else{
+    total_study_count_member = (total_study_count_member - 1); 
+  }
+  all_counting_form(total_study_count_member);
+}
+function all_counting_form(total_study_count_member){
+  $("#no_of_child_std").val(total_study_count_member);
+  $("#no_of_child_std_val").val(total_study_count_member);
+  $("#submit_result").val(total_study_count_member);
+  $("#submit_result_val").val(total_study_count_member);
+
+  var no_of_book_couting = (total_study_count_member * 6);
+  $("#notebook").val(no_of_book_couting);
+  $("#notebook_val").val(no_of_book_couting);
+}
 function update_remark(remark){
   var mobileno = "<?php echo @$_GET['mobileno'];?>";
   $.ajax({
@@ -414,6 +588,8 @@ function update_remark(remark){
       }
     });
 }
+
+
 
 function view_print_popup(){
 

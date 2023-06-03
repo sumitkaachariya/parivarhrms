@@ -58,17 +58,20 @@
 
                         <div class="form-group">
                             <label for="no_of_child_std">Number of children studying</label>
-                            <input type="number" class="form-control" value="<?php echo $member_user->edu_no_of_child;?>" name="no_of_child_std" id="no_of_child_std" placeholder="Number of children studying" required>
+                            <input type="number" class="form-control" value="<?php echo $member_user->edu_no_of_child;?>"  id="no_of_child_std" placeholder="Number of children studying" disabled required>
+                            <input type="hidden" class="form-control"  name="no_of_child_std" id="no_of_child_std_val"  value="<?php echo $member_user->edu_no_of_child;?>" placeholder="Number of children studying">
                         </div> 
 
                         <div class="form-group">
                             <label for="submit_result">Deposited result</label>
-                            <input type="number" class="form-control" value="<?php echo $member_user->no_of_result;?>" name="submit_result" id="submit_result" placeholder="Deposited result" required>
+                            <input type="number" class="form-control" value="<?php echo $member_user->no_of_result;?>"  id="submit_result" placeholder="Deposited result" disabled required>
+                            <input type="hidden" class="form-control" value="<?php echo $member_user->no_of_result;?>" name="submit_result" id="submit_result_val" placeholder="Deposited result">
                         </div>   
 
                         <div class="form-group">
                             <label for="notebook">A given notebook</label>
-                            <input type="number" class="form-control" value="<?php echo $member_user->pay_of_notebook;?>" name="notebook" id="notebook" placeholder="A given notebook" required>
+                            <input type="number" class="form-control" value="<?php echo $member_user->pay_of_notebook;?>" id="notebook" placeholder="A given notebook" disabled required>
+                            <input type="hidden" class="form-control" value="<?php echo $member_user->pay_of_notebook;?>" name="notebook" id="notebook_val" placeholder="A given notebook">
                         </div>
                         
                         <div class="form-group">
@@ -97,9 +100,15 @@
                             </div>
                             <div class="col-lg-4 col-12">
                                 <div class="form-group">
-                                    <label for="sabhy_edu_<?php echo $i;?>">Member study <?php echo $i;?></label>
-                                    <input type="text" value="<?php echo $memberlist->member_edu ;?>" data-id="save_sabhy_edu_<?php echo $i;?>" class="form-control" name="sabhy[<?php echo $memberlist->id;?>][edu]" id="sabhy_edu_<?php echo $i;?>" placeholder="Member study <?php echo $i;?>" required="">
+                                    <label for="sabhy_age_<?php echo $i;?>">Member Age <?php echo $i;?></label>
+                                    <input type="text" value="<?php echo $memberlist->member_age ;?>" data-id="save_sabhy_age_<?php echo $i;?>" class="form-control" name="sabhy[<?php echo $memberlist->id;?>][age]" id="sabhy_age_<?php echo $i;?>" placeholder="Member age <?php echo $i;?>" required="">
                                 </div>
+                            </div>
+                            <div class="col-lg-12 col-12">
+                             <div class="custom-control custom-checkbox">
+                                <input <?php if($memberlist->present_member == 1){ echo 'checked'; } ?> onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_<?php echo $i;?>" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[<?php echo $i;?>][present]" id="sabhy_present_<?php echo $i;?>">
+                                <label class="custom-control-label" for="sabhy_present_<?php echo $i;?>+'">Present Study Member <?php echo $i;?></label>
+                              </div>
                             </div>
                         </div>
                         <hr>
@@ -164,11 +173,14 @@ $("#update_details_form").submit(function(e){
  }
 });
 
-
+var total_study_count_member = 0;
 $("#total_member").on("keyup", function(){
    var total = $(this).val();
    var html = '';
-
+   total_study_count_member = 0;
+  $("#update_details_form .custom-control-input:checked").each(function(){
+    total_study_count_member = (total_study_count_member + 1);
+  }); 
    var record_of_total = "<?php echo count($member_list); ?>";
    record_of_total = parseInt(record_of_total);
    var counting_is_start = (total - record_of_total);
@@ -185,15 +197,39 @@ $("#total_member").on("keyup", function(){
         html += '</div>';
         html += '<div class="col-lg-4 col-12">';
           html += '<div class="form-group">';
-            html += '<label for="sabhy_edu_'+num+'">Member study '+num+'</label>';
-            html += '<input type="text" data-id="save_sabhy_edu_'+i+'" class="form-control" name="sabhy[null][edu]" id="sabhy_edu_'+num+'" placeholder="Member study '+num+'" required="">';
+            html += '<label for="sabhy_age_'+num+'">Member Age '+num+'</label>';
+            html += '<input type="text" data-id="save_sabhy_age_'+i+'" class="form-control" name="sabhy[null][age]" id="sabhy_age_'+num+'" placeholder="Member Age '+num+'" required="">';
           html += '</div>';
         html += '</div>';
-      html += '</div>';
+        html += '<div class="col-lg-12 col-12">';
+          html += '<div class="custom-control custom-checkbox">';
+            html += '<input onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_'+num+'" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[null][present]" id="sabhy_present_'+num+'">';
+            html += '<label class="custom-control-label" for="sabhy_present_'+num+'">Present Study Member'+num+'</label>';
+          html += '</div>';
+        html += '</div>';
+      html += '</div><hr>';
     }
    }
    $('.total_member_of_list').html(html);
+   all_counting_form(total_study_count_member);
 });
 
+function check_total_study_count_member(t){
+  if ($(t).is(':checked')) {
+      total_study_count_member = (total_study_count_member + 1); 
+  }else{
+    total_study_count_member = (total_study_count_member - 1); 
+  }
+  all_counting_form(total_study_count_member);
+}
+function all_counting_form(total_study_count_member){
+  $("#no_of_child_std").val(total_study_count_member);
+  $("#no_of_child_std_val").val(total_study_count_member);
+  $("#submit_result").val(total_study_count_member);
+  $("#submit_result_val").val(total_study_count_member);
 
+  var no_of_book_couting = (total_study_count_member * 6);
+  $("#notebook").val(no_of_book_couting);
+  $("#notebook_val").val(no_of_book_couting);
+}
 </script>

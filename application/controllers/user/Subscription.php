@@ -41,11 +41,13 @@ class Subscription extends CI_Controller {
         $mobileno = $this->input->get('mobileno');
         $member_user =  $Common->select_get_row_data('user_membership_plan',array('mobileno' => $mobileno),'*');
         $data['type_pay_list'] =  $Common->all_records('hrms_type_pay_list','*');
-        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');;
+        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');
+        $data['educations'] = $Common->where_all_records('hrms_eduction_list', array('hrms_user_id' => $data['parivar']->id),'*');
         if($member_user){
             $user_id = $member_user->id;
             $data['member_user'] = $member_user;
             $data['subscriptions'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $user_id),'*');
+            $data['eduction_list'] = $Common->where_all_records('hrms_member_eduction_list', array('member_user_id' => $user_id,'year' => date('Y')),'*');
         }
         // echo "<pre>";print_r($data);
         // die;
@@ -202,12 +204,26 @@ class Subscription extends CI_Controller {
                        
                         $datass = array(
                             'member_name' => $sabhy['name'],
-                            'member_edu' => $sabhy['edu'],
+                            'member_age' => $sabhy['age'],
+                            'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                             'member_user_id' => $last_member_user_id,
                             'staff_id ' => $current_user,
                             'hrms_user_id ' =>$data['parivar']->id,
                         );
-                        $plan_member = $Common->insert_data('hrms_member_of_user_home', $datass);
+                        $user_home = $Common->insert_data('hrms_member_of_user_home', $datass);
+                        $last_user_home_id =  $this->db->insert_id();   
+
+                        if(isset($sabhy['present']) && $sabhy['present'] == 1){
+                            $present_member = array(
+                                'year' => date('Y'),
+                                'home_member_id' => $last_user_home_id,
+                                'member_user_id' => $last_member_user_id,
+                                'staff_id ' => $current_user,
+                                'hrms_user_id ' =>$data['parivar']->id
+                            );
+                            $present_member_list = $Common->insert_data('hrms_member_eduction_list', $present_member);
+                        }
+
                         $status = 1;
                     }
                 }
@@ -292,17 +308,30 @@ class Subscription extends CI_Controller {
             if($key == "null"){
                 $datass = array(
                     'member_name' => $sabhy['name'],
-                    'member_edu' => $sabhy['edu'],
+                    'member_age' => $sabhy['age'],
+                    'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
                     'hrms_user_id ' =>$data['parivar']->id,
                 );
                 $Common->insert_data('hrms_member_of_user_home', $datass);
+                $last_user_home_id =  $this->db->insert_id();   
+                    if(isset($sabhy['present']) && $sabhy['present'] == 1){
+                        $present_member = array(
+                            'year' => date('Y'),
+                            'home_member_id' => $last_user_home_id,
+                            'member_user_id' => $member_user->id,
+                            'staff_id ' => $member_user->hrms_staff_id,
+                            'hrms_user_id ' =>$data['parivar']->id,
+                        );
+                        $present_member_list = $Common->insert_data('hrms_member_eduction_list', $present_member);
+                    }
                 $status = 1;
             }else{
                 $datass = array(
                     'member_name' => $sabhy['name'],
-                    'member_edu' => $sabhy['edu'],
+                    'member_age' => $sabhy['age'],
+                    'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
                     'hrms_user_id ' =>$data['parivar']->id,
@@ -311,15 +340,59 @@ class Subscription extends CI_Controller {
                 $status = 1;
             }
         }
-    }else{
-        $status = 1;
-    }
-    if($status == 1){
-        echo json_encode(array('status' => 200,'response'=>'SuccessFully Update Details'));
-    }
+        }else{
+            $status = 1;
+        }
+        if($status == 1){
+            echo json_encode(array('status' => 200,'response'=>'SuccessFully Update Details'));
+        }
     }
 
-    
+    public function update_edu(){
+        $Common =  new Commn();
+        $current_user = $this->session->userdata('id');
+        $data = $this->return_data();
+
+        $home_member_id = $this->input->post('home_member_id');
+        $member_user_id = $this->input->post('member_user_id');
+        $std = $this->input->post('std');
+        $percentage = $this->input->post('percentage');
+        $year = $this->input->post('year');
+        $get_record = get_field('hrms_member_eduction_list',array('home_member_id' => $home_member_id,'year' => $year),'*');
+        $status = 0;
+        if($get_record){
+            $update_data = array('std' => $std,'percentage' => $percentage);
+            $where = array('id' => $get_record->id);
+            $Common->update_data('hrms_member_eduction_list', $update_data, $where);
+            $status = 1;
+        }else{
+            if($data['user']->role_id == 1){
+                $current_user = null;
+            }
+            $update_data = array(
+                'std' => $std,
+                'percentage' => $percentage,
+                'year' => $year,
+                'home_member_id' => $home_member_id,
+                'member_user_id' => $member_user_id,
+                'staff_id ' => $current_user,
+                'hrms_user_id ' =>$data['parivar']->id
+            );
+            $member_eduction_list = $Common->insert_data('hrms_member_eduction_list', $update_data);
+            $status = 1;
+        }
+        if($status == 1){
+            echo json_encode(array('code' => 200,'message'=>'SuccessFully Update Details'));
+        }
+    }
+
+    public function delete_subscrption_rec(){
+        $Common =  new Commn();
+        $id = $this->input->post('id');
+        $Common->delete_data('hrms_user_plan',array('id' => $id));
+        echo json_encode(array('code' => 200,'message'=>'SuccessFully Delete Record'));
+    }
+
     private function return_data(){
         $data['user_id'] = $this->session->userdata('id');
         $data['user'] = $this->common_data($data['user_id']);
