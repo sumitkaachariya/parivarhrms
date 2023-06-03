@@ -58,25 +58,25 @@
 
                         <div class="form-group">
                             <label for="no_of_child_std">Number of children studying</label>
-                            <input type="number" class="form-control" value="<?php echo $member_user->edu_no_of_child;?>"  id="no_of_child_std" placeholder="Number of children studying" disabled required>
-                            <input type="hidden" class="form-control"  name="no_of_child_std" id="no_of_child_std_val"  value="<?php echo $member_user->edu_no_of_child;?>" placeholder="Number of children studying">
+                            <input type="number" class="form-control" value="<?php echo $user_membership_plan_settings->edu_no_of_child;?>"  id="no_of_child_std" placeholder="Number of children studying" disabled required>
+                            <input type="hidden" class="form-control"  name="no_of_child_std" id="no_of_child_std_val"  value="<?php echo $user_membership_plan_settings->edu_no_of_child;?>" placeholder="Number of children studying">
                         </div> 
 
                         <div class="form-group">
                             <label for="submit_result">Deposited result</label>
-                            <input type="number" class="form-control" value="<?php echo $member_user->no_of_result;?>"  id="submit_result" placeholder="Deposited result" disabled required>
-                            <input type="hidden" class="form-control" value="<?php echo $member_user->no_of_result;?>" name="submit_result" id="submit_result_val" placeholder="Deposited result">
+                            <input type="number" class="form-control" value="<?php echo $user_membership_plan_settings->no_of_result;?>"  id="submit_result" placeholder="Deposited result" disabled required>
+                            <input type="hidden" class="form-control" value="<?php echo $user_membership_plan_settings->no_of_result;?>" name="submit_result" id="submit_result_val" placeholder="Deposited result">
                         </div>   
 
                         <div class="form-group">
                             <label for="notebook">A given notebook</label>
-                            <input type="number" class="form-control" value="<?php echo $member_user->pay_of_notebook;?>" id="notebook" placeholder="A given notebook" disabled required>
-                            <input type="hidden" class="form-control" value="<?php echo $member_user->pay_of_notebook;?>" name="notebook" id="notebook_val" placeholder="A given notebook">
+                            <input type="number" class="form-control" value="<?php echo $user_membership_plan_settings->pay_of_notebook;?>" id="notebook" placeholder="A given notebook" disabled required>
+                            <input type="hidden" class="form-control" value="<?php echo $user_membership_plan_settings->pay_of_notebook;?>" name="notebook" id="notebook_val" placeholder="A given notebook">
                         </div>
                         
                         <div class="form-group">
                             <label for="total_member">Total member</label>
-                            <input type="number" class="form-control" min="<?php echo $member_user->no_of_home_person;?>" value="<?php echo $member_user->no_of_home_person;?>" name="total_member" id="total_member" placeholder="Total member" required>
+                            <input type="number" class="form-control" min="<?php echo $user_membership_plan_settings->no_of_home_person;?>" value="<?php echo $user_membership_plan_settings->no_of_home_person;?>" name="total_member" id="total_member" placeholder="Total member" required>
                         </div>
 
                     </div>

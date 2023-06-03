@@ -68,6 +68,7 @@ class Subscription extends CI_Controller {
             $user_id = $member_user->id;
             $data['member_user'] = $member_user;
             $data['subscriptions'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $user_id),'*');
+            $data['user_membership_plan_settings'] = $Common->select_get_row_data('user_membership_plan_settings', array('member_user_id' => $user_id),'*');
             $data['member_list'] = $Common->where_all_records('hrms_member_of_user_home', array('member_user_id' => $user_id),'*');
         }
         $this->load->view('dashboard/header',$data);
@@ -162,10 +163,6 @@ class Subscription extends CI_Controller {
                 'address' => $this->input->post('address'),
                 'mobileno' => $this->input->post('mobile_no'),
                 'gam_id' => $this->input->post('gam'),
-                'edu_no_of_child' => $this->input->post('no_of_child_std'),
-                'no_of_result' => $this->input->post('submit_result'),
-                'pay_of_notebook' => $this->input->post('notebook'),
-                'no_of_home_person' => $this->input->post('total_member'),
                 'year' => date('Y'),
                 'hrms_staff_id' => $current_user,
                 'hrms_user_id' => $data['parivar']->id,
@@ -173,6 +170,17 @@ class Subscription extends CI_Controller {
 
             $user_membership_plan_data = $Common->insert_data('user_membership_plan', $membership_plan);
             $last_member_user_id =  $this->db->insert_id();
+            $membership_plan_settings = array(
+                'edu_no_of_child' => $this->input->post('no_of_child_std'),
+                'no_of_result' => $this->input->post('submit_result'),
+                'pay_of_notebook' => $this->input->post('notebook'),
+                'no_of_home_person' => $this->input->post('total_member'),
+                'year' => date('Y'),
+                'member_user_id' =>$last_member_user_id,
+                'hrms_staff_id' => $current_user,
+                'hrms_user_id' => $data['parivar']->id,
+            );
+            $membership_plan_settings_data = $Common->insert_data('user_membership_plan_settings', $membership_plan_settings);
             $pay_list = $this->input->post('pay_list[]');
             $sabhylist = $this->input->post('sabhy[]');
 
@@ -296,12 +304,18 @@ class Subscription extends CI_Controller {
         'name' => $this->input->post('name'),
         'address' => $this->input->post('address'),
         'gam_id' => $this->input->post('gam'),
+     );
+     $Common->update_data('user_membership_plan', $details, array('mobileno'=>$this->input->post('mobileno')));
+    
+     $membership_plan_settings = array(
         'edu_no_of_child' => $this->input->post('no_of_child_std'),
         'no_of_result' => $this->input->post('submit_result'),
         'pay_of_notebook' => $this->input->post('notebook'),
-        'no_of_home_person' => $this->input->post('total_member')
-     );
-     $Common->update_data('user_membership_plan', $details, array('mobileno'=>$this->input->post('mobileno')));
+        'no_of_home_person' => $this->input->post('total_member'),
+        'year' => date('Y')
+    );
+    $Common->update_data('user_membership_plan_settings', $membership_plan_settings, array('member_user_id'=> $member_user->id));
+
      $sabhylist = $this->input->post('sabhy[]');
 
      if(isset($sabhylist)){
