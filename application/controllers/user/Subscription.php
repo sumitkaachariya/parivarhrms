@@ -62,7 +62,8 @@ class Subscription extends CI_Controller {
         $mobileno = $this->input->get('mobileno');
         $member_user =  $Common->select_get_row_data('user_membership_plan',array('mobileno' => $mobileno),'*');
         $data['type_pay_list'] =  $Common->all_records('hrms_type_pay_list','*');
-        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');;
+        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');
+        $data['educations'] = $Common->where_all_records('hrms_eduction_list', array('hrms_user_id' => $data['parivar']->id),'*');
         if($member_user){
             $user_id = $member_user->id;
             $data['member_user'] = $member_user;
@@ -179,7 +180,6 @@ class Subscription extends CI_Controller {
             if(isset($pay_list)){
                 foreach ($pay_list as $key => $list) {
                     if($list != ''){
-
                         $pay_id = get_field('hrms_type_pay_list',array('name' => $key,'hrms_user_id' => $data['parivar']->id),'id');
                         $table = 'hrms_user_plan';
                         $datas = array(
@@ -205,6 +205,7 @@ class Subscription extends CI_Controller {
                         $datass = array(
                             'member_name' => $sabhy['name'],
                             'member_age' => $sabhy['age'],
+                            'member_edu' => isset($sabhy['std']) ? $sabhy['std'] : null,
                             'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                             'member_user_id' => $last_member_user_id,
                             'staff_id ' => $current_user,
@@ -215,6 +216,7 @@ class Subscription extends CI_Controller {
 
                         if(isset($sabhy['present']) && $sabhy['present'] == 1){
                             $present_member = array(
+                                'std' => isset($sabhy['std']) ? $sabhy['std'] : null,
                                 'year' => date('Y'),
                                 'home_member_id' => $last_user_home_id,
                                 'member_user_id' => $last_member_user_id,
@@ -309,6 +311,7 @@ class Subscription extends CI_Controller {
                 $datass = array(
                     'member_name' => $sabhy['name'],
                     'member_age' => $sabhy['age'],
+                    'member_edu' => $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
@@ -318,6 +321,7 @@ class Subscription extends CI_Controller {
                 $last_user_home_id =  $this->db->insert_id();   
                     if(isset($sabhy['present']) && $sabhy['present'] == 1){
                         $present_member = array(
+                            'std' => $sabhy['std'],
                             'year' => date('Y'),
                             'home_member_id' => $last_user_home_id,
                             'member_user_id' => $member_user->id,
@@ -331,6 +335,7 @@ class Subscription extends CI_Controller {
                 $datass = array(
                     'member_name' => $sabhy['name'],
                     'member_age' => $sabhy['age'],
+                    'member_edu' => $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
@@ -341,6 +346,7 @@ class Subscription extends CI_Controller {
                         $get_record = get_field('hrms_member_eduction_list',array('home_member_id' => $key,'year' => date('Y')),'*');
                         if(!$get_record){
                             $present_member = array(
+                                'std' => $sabhy['std'],
                                 'year' => date('Y'),
                                 'home_member_id' => $key,
                                 'member_user_id' => $member_user->id,

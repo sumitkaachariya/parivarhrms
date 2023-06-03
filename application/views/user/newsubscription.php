@@ -466,6 +466,19 @@ $("#total_member").on("keyup", function(){
           html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12 col-12">';
+          html += '<div class="form-group">';
+            html += '<label for="sabhy_std_'+i+'">Member Standard '+i+'</label>';
+            html += '<select data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy['+i+'][std]" id="sabhy_std_'+i+'">';
+            html += '<option value="">Select Standard</option>';
+            <?php  if(isset($educations)){
+              foreach ($educations as $key => $education) {
+            ?>
+              html += '<option value="<?php echo $education->id; ?>"><?php echo $education->name; ?></option>';
+            <?php } } ?>
+            html += '</select>';
+          html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12 col-12">';
           html += '<div class="custom-control custom-checkbox">';
             html += '<input onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_'+i+'" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy['+i+'][present]" id="sabhy_present_'+i+'">';
             html += '<label class="custom-control-label" for="sabhy_present_'+i+'">Present Study Member'+i+'</label>';

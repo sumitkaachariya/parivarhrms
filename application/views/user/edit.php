@@ -105,6 +105,15 @@
                                 </div>
                             </div>
                             <div class="col-lg-12 col-12">
+                              <select data-id="save_sabhy_std_<?php echo $i;?>" class="form-control" name="sabhy[<?php echo $memberlist->id;?>][std]" id="sabhy_std_<?php echo $i;?>">
+                                <option value="">Select Standard</option>
+                                <?php if(isset($educations)){
+                                  foreach ($educations as $key => $edu) {?>
+                                      <option <?php if($memberlist->member_edu == $edu->id){ echo 'selected'; }?> value="<?php echo $edu->id;?>"><?php echo $edu->name;?></option>
+                                <?php }}  ?>
+                            </select>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-3">
                              <div class="custom-control custom-checkbox">
                                 <input <?php if($memberlist->present_member == 1){ echo 'checked'; } ?> onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_<?php echo $i;?>" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[<?php echo $memberlist->id;?>][present]" id="sabhy_present_<?php echo $i;?>">
                                 <label class="custom-control-label" for="sabhy_present_<?php echo $i;?>">Present Study Member <?php echo $i;?></label>
@@ -202,9 +211,22 @@ $("#total_member").on("keyup", function(){
           html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12 col-12">';
+          html += '<div class="form-group">';
+            html += '<label for="sabhy_std_'+num+'">Member Standard '+num+'</label>';
+            html += '<select data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy[null][std]" id="sabhy_std_'+num+'">';
+            html += '<option value="">Select Standard</option>';
+            <?php  if(isset($educations)){
+              foreach ($educations as $key => $education) {
+            ?>
+              html += '<option value="<?php echo $education->id; ?>"><?php echo $education->name; ?></option>';
+            <?php } } ?>
+            html += '</select>';
+          html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-12 col-12">';
           html += '<div class="custom-control custom-checkbox">';
             html += '<input onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_'+num+'" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[null][present]" id="sabhy_present_'+num+'">';
-            html += '<label class="custom-control-label" for="sabhy_present_'+num+'">Present Study Member'+num+'</label>';
+            html += '<label class="custom-control-label" for="sabhy_present_'+num+'">Present Study Member '+num+'</label>';
           html += '</div>';
         html += '</div>';
       html += '</div><hr>';
