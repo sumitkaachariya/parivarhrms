@@ -112,7 +112,7 @@
                             <input type="number" class="form-control" value="0" id="notebook" placeholder="A given notebook" disabled required>
                             <input type="hidden" class="form-control"  name="notebook" id="notebook_val" placeholder="A given notebook">
                         </div>
-=
+                        
                         <?php if(isset($type_pay_list)){ 
                           foreach($type_pay_list as $key => $pay_list){
 
