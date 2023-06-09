@@ -89,6 +89,11 @@
                               <?php }}?>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="total_member">Total member</label>
+                            <input type="number" class="form-control"  name="total_member" id="total_member" placeholder="Total member" required>
+                        </div>
     
                         <div class="form-group">
                             <label for="no_of_child_std">Number of children studying</label>
@@ -107,12 +112,7 @@
                             <input type="number" class="form-control" value="0" id="notebook" placeholder="A given notebook" disabled required>
                             <input type="hidden" class="form-control"  name="notebook" id="notebook_val" placeholder="A given notebook">
                         </div>
-
-                        <div class="form-group">
-                            <label for="total_member">Total member</label>
-                            <input type="number" class="form-control"  name="total_member" id="total_member" placeholder="Total member" required>
-                        </div>
-                      
+=
                         <?php if(isset($type_pay_list)){ 
                           foreach($type_pay_list as $key => $pay_list){
 
