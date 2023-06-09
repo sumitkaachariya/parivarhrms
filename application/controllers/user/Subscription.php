@@ -85,6 +85,8 @@ class Subscription extends CI_Controller {
 
         $data['member_user']=  get_field('user_membership_plan',array('mobileno' => $mobile_no ,'hrms_user_id' => $data['parivar']->id),'*');
 
+        $data['member_user_setting']=  get_field('user_membership_plan_settings',array('member_user_id' =>$data['member_user']->id ,'hrms_user_id' => $data['parivar']->id),'*');
+
         $data['list_membership'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $data['member_user']->id),'*');
        
         $data['staff_user']=  get_field('staff_user',array('id' =>  $data['member_user']->hrms_staff_id),'*');

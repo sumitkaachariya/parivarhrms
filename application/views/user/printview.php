@@ -33,12 +33,12 @@
             <tr>
                 <th style="width:250px;background-color:#ddd;">Name</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><b><?php echo $member_user->name;?></b></td>
+                <td><b><?php echo ucfirst($member_user->name);?></b></td>
             </tr>
             <tr>
                 <th style="background-color:#ddd;">Address</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><?php echo $member_user->address;?></td>
+                <td><?php echo ucfirst($member_user->address);?></td>
             </tr>
             <tr>
                 <th style="background-color:#ddd;">Mobile No</th>
@@ -48,27 +48,27 @@
             <tr>
                 <th style="background-color:#ddd;">Gam</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><?php echo get_field('gam',array('id' => $member_user->gam_id),'name')->name;?></td>
+                <td><?php echo ucfirst(get_field('gam',array('id' => $member_user->gam_id),'name')->name);?></td>
             </tr>
             <tr>
                 <th style="background-color:#ddd;">Number of children studying</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><?php echo $member_user->edu_no_of_child;?></td>
+                <td><?php echo $member_user_setting->edu_no_of_child;?></td>
             </tr>
             <tr>
                 <th style="background-color:#ddd;">Total Result</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><?php echo $member_user->no_of_result;?></td>
+                <td><?php echo $member_user_setting->no_of_result;?></td>
             </tr>
             <tr>
                 <th style="background-color:#ddd;">Total given book</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><?php echo $member_user->pay_of_notebook;?></td>
+                <td><?php echo $member_user_setting->pay_of_notebook;?></td>
             </tr>
             <tr>
                 <th style="background-color:#ddd;">Total household members</th>
                 <td style="background-color:#ddd;">:</td>
-                <td><?php echo $member_user->no_of_home_person;?></td>
+                <td><?php echo $member_user_setting->no_of_home_person;?></td>
             </tr>
             </table>
         </div>
@@ -108,7 +108,7 @@
                 <div style="text-align:right;">
                     <table align="center" cellpadding="8" cellspacing="0" style="border:1px solid">
                         <tr><th style="text-align:center;width:250px;background-color:#ddd;border-bottom:1px solid">Name of Borrower</th></tr>
-                        <tr><td style="text-align:center;"><?php echo $staff_user->name; ?></td></tr>
+                        <tr><td style="text-align:center;"><?php echo ucfirst($staff_user->name); ?></td></tr>
                     </table>
                 </div>
                 <div style="text-align:right;margin-top:30px;">
@@ -116,7 +116,7 @@
                         <tr><th style="text-align:center;width:250px;background-color:#ddd;border-bottom:1px solid">Remark</th></tr>
                         <tr><td style="text-align:left;">
                         <?php if($member_user->remark != null){ ?>
-                            <?php echo $member_user->remark;?>
+                            <?php echo ucfirst($member_user->remark);?>
                         <?php } ?>
                         </td></tr>
                     </table>
