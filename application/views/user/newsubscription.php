@@ -238,7 +238,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"><b>Education Member List - <?php echo date('Y'); ?></b></h3>
+                <h3 class="card-title"><b>Education Getting List - <?php echo date('Y'); ?></b></h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -467,9 +467,9 @@ $("#total_member").on("keyup", function(){
         html += '</div>';
         html += '<div class="col-lg-12 col-12">';
           html += '<div class="form-group">';
-            html += '<label for="sabhy_std_'+i+'">Member Standard '+i+'</label>';
+            html += '<label for="sabhy_std_'+i+'">Member Education '+i+'</label>';
             html += '<select data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy['+i+'][std]" id="sabhy_std_'+i+'">';
-            html += '<option value="">Select Standard</option>';
+            html += '<option value="">Select Education</option>';
             <?php  if(isset($educations)){
               foreach ($educations as $key => $education) {
             ?>

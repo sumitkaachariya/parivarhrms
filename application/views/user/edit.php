@@ -105,8 +105,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-12 col-12">
+                            <label for="sabhy_age_<?php echo $i;?>">Member Education <?php echo $i;?></label>
                               <select data-id="save_sabhy_std_<?php echo $i;?>" class="form-control" name="sabhy[<?php echo $memberlist->id;?>][std]" id="sabhy_std_<?php echo $i;?>">
-                                <option value="">Select Standard</option>
+                                <option value="">Select Education</option>
                                 <?php if(isset($educations)){
                                   foreach ($educations as $key => $edu) {?>
                                       <option <?php if($memberlist->member_edu == $edu->id){ echo 'selected'; }?> value="<?php echo $edu->id;?>"><?php echo $edu->name;?></option>
@@ -212,9 +213,9 @@ $("#total_member").on("keyup", function(){
         html += '</div>';
         html += '<div class="col-lg-12 col-12">';
           html += '<div class="form-group">';
-            html += '<label for="sabhy_std_'+num+'">Member Standard '+num+'</label>';
+            html += '<label for="sabhy_std_'+num+'">Member Education '+num+'</label>';
             html += '<select data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy[null][std]" id="sabhy_std_'+num+'">';
-            html += '<option value="">Select Standard</option>';
+            html += '<option value="">Select Education</option>';
             <?php  if(isset($educations)){
               foreach ($educations as $key => $education) {
             ?>
