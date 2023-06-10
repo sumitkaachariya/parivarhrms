@@ -57,8 +57,8 @@
                     <td><?php echo get_field('gam',array('id' =>$user->gam_id),'name')->name; ?></td>
                     <td><?php echo $user->mobileno; ?></td>
                     <td>
-                      <a href="<?php echo site_url('member/newsubscription');?>?mobileno=<?php echo $user->mobileno?>"><i class="fa fa-eye"></i></a>
-                      <a href="#" data-toggle="modal" data-mobile_no data-target="#modal-default"><i class="fa fa-comment"></i></a>
+                      <a href="<?php echo site_url('users/edit');?>?id=<?php echo $user->id?>"><i class="fa fa-edit"></i></a>
+                      <!-- <a href="javascript:void(0)" data-id="<?php #echo $user->id; ?>" class="delete_user"><i class="fa fa-trash"></i></a> -->
                     </td>
                   </tr>
                   <?php } }?>
@@ -115,4 +115,28 @@
   </div>
   <!-- /.content-wrapper -->
 
-<script></script>
+<script>
+$(".delete_user").on("click", function(){
+  var id = $(this).data('id');
+  if (confirm('Are You Sure Delete Record?')) {
+      $.ajax({
+        url:'<?php echo base_url();?>users/delete_user',
+        type:'post',
+        dataType: "json",
+        data:{id:id},
+        success:function(res){
+          if(res.code == 200){
+            toastr.success(res.message);  
+          }
+          if(res.code == 400){
+            toastr.warning(res.message);     
+          }
+          if(res.code == 404){
+            toastr.error(res.message);     
+          }
+          setTimeout(function(){ location.reload(); },300); 
+        }
+      });
+    }
+}); 
+</script>

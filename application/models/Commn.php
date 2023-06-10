@@ -91,6 +91,23 @@ class Commn extends CI_Model
         $this->db->where($where);
         return $this->db->get($table)->result();
     }
+
+    public function custom_result_view(){
+        // $this->db->select_max('percentage');
+        // $this->db->where('std',$std);
+        // $this->db->where('year',date('Y'));
+        // $this->db->limit(3);
+        // return $this->db->get('hrms_member_eduction_list')->result();
+
+        $this->db->select('*');
+        $this->db->select_max('hrms_member_eduction_list.percentage');
+        $this->db->join('hrms_member_eduction_list', 'hrms_member_eduction_list.std = hrms_eduction_list.id');
+        $this->db->where('hrms_member_eduction_list.year',date('Y'));
+        $this->db->limit(3);
+        $this->db->get('hrms_eduction_list');
+
+        echo $this->db->last_query();
+    }
     
     public function get_product($id){
         // `products`.*, `product_variants`.*, `product_variant_options`.*, `skus`.*, `skus_product_variant_options`.*

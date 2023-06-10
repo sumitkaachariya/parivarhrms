@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Maintenance extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -21,22 +21,18 @@ class Welcome extends CI_Controller {
 	public function __construct()
     {
         parent::__construct(); 
-        $this->load->model('Commn');
-        $Common =  new Commn();
 		$maintenance = maintenance();
         if($maintenance == 0){
             $id = $this->session->userdata('id');
             if(!empty($id)){
                 redirect('dashboard');
+            }else{
+                redirect('/');
             }
-        }else{
-            redirect('maintenance');
         }
     }
 	public function index()
 	{
-			$this->load->view('credentials/header');
-			$this->load->view('credentials/login');
-			$this->load->view('credentials/footer');
+			$this->load->view('maintenance');
 	}
 }

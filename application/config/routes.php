@@ -50,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'welcome';
+$route['maintenance'] = 'Maintenance';
 $route['check_auth'] = 'credentials/Login/check_auth';
 
 
@@ -58,6 +59,10 @@ $route['dashboard'] = 'dashboard/Dashboard';
 $route['users'] = 'users/User';
 $route['users/add_user'] = 'users/User/add_user';
 $route['users/save_user'] = 'users/User/save_user';
+$route['users/edit'] = 'users/User/edit';
+$route['users/update_user'] = 'users/User/update_user';
+$route['users/delete_user'] = 'users/User/delete_user';
+
 $route['subscription'] = 'user/Subscription';
 $route['subscription/update'] = 'user/Subscription/update_subscription';
 $route['subscription/remark'] = 'user/Subscription/remark';
@@ -69,9 +74,12 @@ $route['subscription/update_details_subscription'] = 'user/Subscription/update_d
 $route['subscription/printview'] = 'user/Subscription/printview';
 $route['subscription/submit_subscription'] = 'user/Subscription/submit_subscription';
 
+
+$route['result'] = 'result/Result';
 $route['notebook'] = 'notebook/Notebook';
 
 $route['settings'] = 'settings/Setting';
+$route['settings/google_sheet_token'] = 'settings/Setting/google_sheet_token';
 
 $route['logout'] = 'dashboard/Dashboard/logout';
 $route['404_override'] = '';
