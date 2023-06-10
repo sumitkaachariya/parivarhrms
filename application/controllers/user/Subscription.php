@@ -307,7 +307,7 @@ class Subscription extends CI_Controller {
         $data = $this->return_data();
 
 
-        echo "<pre>";ptint_r($_POST);  
+        echo "<pre>";print_r($_POST);  
         die; 
      $details = array(
         'name' => $this->input->post('name'),
