@@ -54,8 +54,7 @@ class Subscription extends CI_Controller {
             $data['subscriptions'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $user_id),'*');
             $data['eduction_list'] = $Common->where_all_records('hrms_member_eduction_list', array('member_user_id' => $user_id,'year' => date('Y')),'*');
         }
-        // echo "<pre>";print_r($data);
-        // die;
+       
         $this->load->view('dashboard/header',$data);
         $this->load->view('user/newsubscription',$data);
         $this->load->view('dashboard/footer',$data);
@@ -96,8 +95,7 @@ class Subscription extends CI_Controller {
        
         $data['staff_user']=  get_field('staff_user',array('id' =>  $data['member_user']->hrms_staff_id),'*');
 
-        // echo "<pre>";print_r($data);
-        // die;
+       
 
         $amount = array(
             'varshik_lavajam' => 0,
@@ -306,9 +304,6 @@ class Subscription extends CI_Controller {
         $pay_list = $this->input->post('pay_list[]');
         $data = $this->return_data();
 
-
-        echo "<pre>";print_r($_POST);  
-        die; 
      $details = array(
         'name' => $this->input->post('name'),
         'address' => $this->input->post('address'),
@@ -329,8 +324,8 @@ class Subscription extends CI_Controller {
 
      if(isset($sabhylist)){
         foreach ($sabhylist as $key => $sabhy) {
-
-            if($key == "null"){
+            
+            if (str_contains($key, 'null')) {
                 $datass = array(
                     'member_name' => $sabhy['name'],
                     'member_age' => $sabhy['age'],

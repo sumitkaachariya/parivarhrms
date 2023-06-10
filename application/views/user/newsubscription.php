@@ -468,7 +468,7 @@ $("#total_member").on("keyup", function(){
         html += '<div class="col-lg-12 col-12">';
           html += '<div class="form-group">';
             html += '<label for="sabhy_std_'+i+'">Member Education '+i+'</label>';
-            html += '<select data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy['+i+'][std]" id="sabhy_std_'+i+'">';
+            html += '<select required="" data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy['+i+'][std]" id="sabhy_std_'+i+'">';
             html += '<option value="">Select Education</option>';
             <?php  if(isset($educations)){
               foreach ($educations as $key => $education) {
