@@ -5,10 +5,16 @@ class User extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        maintenance();
         $this->load->model('Commn');
-        $id = $this->session->userdata('id');
-        if(empty($id)){
-            redirect('/');
+        $maintenance = maintenance();
+        if($maintenance == 0){
+            $id = $this->session->userdata('id');
+            if(empty($id)){
+                redirect('/');
+            }
+        }else{
+            redirect('maintenance');
         }
     }
 
@@ -30,6 +36,18 @@ class User extends CI_Controller {
         $this->load->view('dashboard/header',$data);
         $this->load->view('users/add_user',$data);
         $this->load->view('dashboard/footer',$data);
+    }
+
+    public function edit(){
+        $Common =  new Commn();
+        $data = $this->return_data();
+        $id =  $this->input->get('id');
+        $data['roles'] = $Common->all_records('role','*');
+        $data['gams'] = get_all_field('gam',array('hrms_user_id'=>$data['parivar']->id),'*','name','asc');
+        $data['user_Data'] = get_field('staff_user',array('id'=> $id),'*');
+        $this->load->view('dashboard/header',$data);
+        $this->load->view('users/edit',$data);
+        $this->load->view('dashboard/footer',$data);        
     }
 
     public function save_user(){
@@ -78,6 +96,64 @@ class User extends CI_Controller {
             return false;
         }
 
+    }
+
+    public function update_user(){
+        $id =  $this->input->post('id');
+        $data = $this->return_data();
+
+        $data['mobileno'] = get_field('staff_user',array('mobileno'=> $this->input->post('mobile_no'), 'id  !=' => $id),'mobileno');
+        $data['email'] = get_field('staff_user',array('email'=> $this->input->post('email'), 'id  !=' => $id),'email');
+        $data['other_mobileno'] = get_field('hrms_user',array('mobileno'=> $this->input->post('mobile_no')),'mobileno');
+
+        $data['other_email'] = get_field('hrms_user',array('email'=> $this->input->post('email')),'email');
+        if(isset($data['mobileno'])){
+            $response = array('message'=> 'Mobile No already Exist','code'=> 404);
+            echo json_encode($response);
+            return false;
+        }
+        if(isset($data['email'])){
+            $response = array('message'=> 'Email Address already Exist','code'=> 404);
+            echo json_encode($response);
+            return false;
+        }
+        if(isset($data['other_mobileno'])){
+            $response = array('message'=> 'Mobile No already Exist','code'=> 404);
+            echo json_encode($response);
+            return false;
+        }
+        if(isset($data['other_email'])){
+            $response = array('message'=> 'Email Address already Exist','code'=> 404);
+            echo json_encode($response);
+            return false;
+        }
+
+        $data_user = array(
+            'name' => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'mobileno' => $this->input->post('mobile_no'),
+            'gam_id' => $this->input->post('gam'),
+            'role_id' => $this->input->post('role'),
+            'status' => 1,
+        );
+        
+        if($this->input->post('password') != ''){
+            $data_user['password'] = md5($this->input->post('password'));
+        }
+        $Common =  new Commn();
+        $user = $Common->update_data('staff_user', $data_user, array('id'=> $id));
+        if($user){
+            $response = array('message'=> 'SuccessFully Update User','code'=> 200);
+            echo json_encode($response);
+            return false;
+        }
+    }
+
+    public function delete_user(){
+        $Common =  new Commn();
+        $id = $this->input->post('id');
+        $Common->delete_data('staff_user',array('id' => $id));
+        echo json_encode(array('code' => 200,'message'=>'SuccessFully Delete Record'));
     }
 
     public function update_subscription(){

@@ -6,9 +6,14 @@ class Setting extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Commn');
-        $id = $this->session->userdata('id');
-        if(empty($id)){
-            redirect('/');
+        $maintenance = maintenance();
+        if($maintenance == 0){
+            $id = $this->session->userdata('id');
+            if(empty($id)){
+                redirect('/');
+            }
+        }else{
+            redirect('maintenance');
         }
     }
 
@@ -33,6 +38,29 @@ class Setting extends CI_Controller {
         $this->load->view('settings/setting',$data);
         $this->load->view('dashboard/footer',$data);
     }
+
+    public function google_sheet_token(){
+        $_CLIENT_ID = $this->input->post('_CLIENT_ID');
+        $_CLIENT_SECRET = $this->input->post('_CLIENT_SECRET');
+
+        $url = base_url().'google_sheet/callback.php';
+        $curl_handle=curl_init();
+        curl_setopt($curl_handle,CURLOPT_URL,$url);
+        curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl_handle, CURLOPT_POSTFIELDS,"_CLIENT_ID=".$_CLIENT_ID."&_CLIENT_SECRET=".$_CLIENT_SECRET);
+        curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
+        // curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
+        $buffer = curl_exec($curl_handle);
+        curl_close($curl_handle);
+        if (empty($buffer)){
+            print "Nothing returned from url.<p>";
+        }
+        else{
+            print $buffer;
+        }
+    }
+
+
 
     public function new(){
         $data = array('');

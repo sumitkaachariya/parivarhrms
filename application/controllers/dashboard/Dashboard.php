@@ -5,11 +5,16 @@ class Dashboard extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Commn');
-        $id = $this->session->userdata('id');
-        if(empty($id)){
-            redirect('/');
+        $maintenance = maintenance();
+        if($maintenance == 0){
+            $id = $this->session->userdata('id');
+            if(empty($id)){
+                redirect('/');
+            }
+        }else{
+            redirect('maintenance');
         }
+        $this->load->model('Commn');
     }
 
     public function index(){
