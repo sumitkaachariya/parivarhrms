@@ -108,6 +108,28 @@ class Commn extends CI_Model
 
         echo $this->db->last_query();
     }
+
+    public function total_assume($data,$date){
+        $this->db->select('hrms_type_pay_list.id, SUM(hrms_user_plan.total_amount) AS amount', FALSE);
+        $this->db->join('hrms_user_plan', 'hrms_user_plan.type_pay = hrms_type_pay_list.id');
+        $this->db->where('hrms_user_plan.staff_id',$data['user_id']);
+        $this->db->where('hrms_type_pay_list.hrms_user_id',$data['parivar']->id);
+        if($date != ''){
+            $this->db->where('DATE(hrms_user_plan.created_at)',$date);
+        }
+        $this->db->group_by("hrms_type_pay_list.id");
+        return $this->db->get('hrms_type_pay_list')->result(); 
+    }
+    public function admin_total_assume($data,$date){
+        $this->db->select('hrms_type_pay_list.id, SUM(hrms_user_plan.total_amount) AS amount', FALSE);
+        $this->db->join('hrms_user_plan', 'hrms_user_plan.type_pay = hrms_type_pay_list.id');
+        $this->db->where('hrms_type_pay_list.hrms_user_id',$data['parivar']->id);
+        if($date != ''){
+            $this->db->where('DATE(hrms_user_plan.created_at)',$date);
+        }
+        $this->db->group_by("hrms_type_pay_list.id");
+        return $this->db->get('hrms_type_pay_list')->result(); 
+    }
     
     public function get_product($id){
         // `products`.*, `product_variants`.*, `product_variant_options`.*, `skus`.*, `skus_product_variant_options`.*

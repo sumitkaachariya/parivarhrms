@@ -220,7 +220,7 @@ class User extends CI_Controller {
                 return false;
             }else{
                 $response = array('data'=> $other_result,'code'=> 200);
-                $role =  get_field('role',array('id' =>$result->role_id),'*');
+                $role =  get_field('role',array('id' =>$other_result->role_id),'*');
                 $other_result->role_name = $role->name;
                 return ($other_result);
             }

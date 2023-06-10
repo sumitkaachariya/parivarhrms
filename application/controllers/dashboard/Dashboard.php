@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller {
     }
 
     public function index(){
+        $Common =  new Commn();
         $data['user_id'] = $this->session->userdata('id');  
         $data['user'] = $this->common_data($data['user_id']);
         if($data['user']->role_id != 1){
@@ -25,6 +26,17 @@ class Dashboard extends CI_Controller {
         }else{
             $data['parivar'] = $this->common_data($data['user_id']);
         }   
+
+        if($data['user']->role_id == 3 || $data['user']->role_id == 2){
+           $allResult = $Common->total_assume($data,'');
+           $todayResult = $Common->total_assume($data,date('y-m-d'));
+        }else{
+            $allResult = $Common->admin_total_assume($data,'');
+            $todayResult = $Common->admin_total_assume($data,'');
+        }
+        $data['total_assume'] = $allResult;
+        $data['todayResult'] = $todayResult;
+        
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/dashboard',$data);
         $this->load->view('dashboard/footer',$data);
