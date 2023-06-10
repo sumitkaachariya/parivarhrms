@@ -161,6 +161,10 @@ class Subscription extends CI_Controller {
         $current_user = $this->session->userdata('id'); 
         $member_user=  get_field('user_membership_plan',array('mobileno' => $this->input->post('mobileno')),'*');
 
+
+        echo "<pre>";print_r($_POST);
+        die;
+
         if($data['user']->role_id == 1){
             $current_user = null;
         }
