@@ -271,6 +271,8 @@ class Subscription extends CI_Controller {
         $member_user=  get_field('user_membership_plan',array('mobileno' => $this->input->post('mobileno')),'*');
         $pay_list = $this->input->post('pay_list[]');
         $data = $this->return_data();
+        echo "<pre>";ptint_r($_POST);
+        die;
         $status = 0;
             if(isset($pay_list)){
                 foreach ($pay_list as $key => $list) {
