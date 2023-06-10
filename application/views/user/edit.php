@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-lg-12 col-12">
                             <label for="sabhy_age_<?php echo $i;?>">Member Education <?php echo $i;?></label>
-                              <select data-id="save_sabhy_std_<?php echo $i;?>" class="form-control" name="sabhy[<?php echo $memberlist->id;?>][std]" id="sabhy_std_<?php echo $i;?>">
+                              <select required="" data-id="save_sabhy_std_<?php echo $i;?>" class="form-control" name="sabhy[<?php echo $memberlist->id;?>][std]" id="sabhy_std_<?php echo $i;?>">
                                 <option value="">Select Education</option>
                                 <?php if(isset($educations)){
                                   foreach ($educations as $key => $edu) {?>
@@ -203,19 +203,19 @@ $("#total_member").on("keyup", function(){
         html += '<div class="col-lg-8 col-12">';
           html += '<div class="form-group">';
             html += '<label for="sabhy_name_'+num+'">Member Name '+num+'</label>';
-            html += '<input type="text" data-id="save_sabhy_name_'+i+'" class="form-control" name="sabhy[null][name]" id="sabhy_name_'+num+'" placeholder="Member Name '+num+'" required="">';
+            html += '<input type="text" data-id="save_sabhy_name_'+i+'" class="form-control" name="sabhy[null_'+num+'][name]" id="sabhy_name_'+num+'" placeholder="Member Name '+num+'" required="">';
           html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-4 col-12">';
           html += '<div class="form-group">';
             html += '<label for="sabhy_age_'+num+'">Member Age '+num+'</label>';
-            html += '<input type="text" data-id="save_sabhy_age_'+i+'" class="form-control" name="sabhy[null][age]" id="sabhy_age_'+num+'" placeholder="Member Age '+num+'" required="">';
+            html += '<input type="text" data-id="save_sabhy_age_'+i+'" class="form-control" name="sabhy[null_'+num+'][age]" id="sabhy_age_'+num+'" placeholder="Member Age '+num+'" required="">';
           html += '</div>';
         html += '</div>';
         html += '<div class="col-lg-12 col-12">';
           html += '<div class="form-group">';
             html += '<label for="sabhy_std_'+num+'">Member Education '+num+'</label>';
-            html += '<select data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy[null][std]" id="sabhy_std_'+num+'">';
+            html += '<select required="" data-id="save_sabhy_std_'+i+'" class="form-control" name="sabhy[null_'+num+'][std]" id="sabhy_std_'+num+'">';
             html += '<option value="">Select Education</option>';
             <?php  if(isset($educations)){
               foreach ($educations as $key => $education) {
