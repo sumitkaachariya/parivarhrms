@@ -30,7 +30,7 @@
                     <form method="get"> 
                         <div class="form-group">
                             <label for="mobileno">Mobile No</label>
-                            <input type="text" class="form-control" value="<?php echo @$_GET['mobileno'];?>" name="mobileno" pattern="[789][0-9]{9}" id="mobileno" placeholder="Enter Mobile No" required>
+                            <input type="text" class="form-control" value="<?php echo @$_GET['mobileno'];?>" name="mobileno" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="mobileno" placeholder="Enter Mobile No" required>
                         </div>
                         <div class="">
                             <button type="submit" class="btn btn-primary">Process</button>
