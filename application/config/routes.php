@@ -75,6 +75,9 @@ $route['subscription/printview'] = 'user/Subscription/printview';
 $route['subscription/submit_subscription'] = 'user/Subscription/submit_subscription';
 
 
+$route['village'] = 'village/Village';
+
+
 $route['result'] = 'result/Result';
 $route['notebook'] = 'notebook/Notebook';
 

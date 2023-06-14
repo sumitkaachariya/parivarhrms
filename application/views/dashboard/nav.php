@@ -23,6 +23,26 @@
 <?php }?>
 <?php if($user->role_id == 1 || $user->role_id == 2){ ?>
 <li class="nav-item">
+<a href="<?php echo site_url('result');?>" class="nav-link <?php  if($segment == 'result'){ echo 'active';}?>">
+  <i class="nav-icon fas fa-list-alt"></i>
+  <p>
+    Result
+  </p>
+</a>
+</li>
+<?php }?>
+<?php if($user->role_id == 1 || $user->role_id == 2){ ?>
+<li class="nav-item">
+<a href="<?php echo site_url('village');?>" class="nav-link <?php  if($segment == 'village'){ echo 'active';}?>">
+  <i class="nav-icon fa-solid fa-house"></i>
+  <p>
+    List Village
+  </p>
+</a>
+</li>
+<?php }?>
+<?php if($user->role_id == 1 || $user->role_id == 2){ ?>
+<li class="nav-item">
 <a href="<?php echo site_url('notebook');?>" class="nav-link <?php  if($segment == 'notebook'){ echo 'active';}?>">
   <i class="nav-icon fas fa-book"></i>
   <p>

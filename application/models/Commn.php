@@ -150,13 +150,10 @@ class Commn extends CI_Model
         return $this->db->get('hrms_type_pay_list')->result();        
     }
 
-    public function total_villege_by_count($data,$date){
+    public function total_villege_by_count($data){
         $this->db->select('gam.id, gam.name, COUNT(user_membership_plan.id) AS counting', FALSE);
         $this->db->join('user_membership_plan', 'user_membership_plan.gam_id = gam.id');
         $this->db->where('gam.hrms_user_id',$data['parivar']->id);
-        if($date != ''){
-            $this->db->where('DATE(hrms_user_plan.created_at)',$date);
-        }
         $this->db->group_by("gam.id");
         return $this->db->get('gam')->result();
     }
