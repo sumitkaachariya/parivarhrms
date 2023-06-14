@@ -27,7 +27,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                   <h3 class="card-title">
-                    Information about Collect Amount
+                    <b>Information about Collect Amount</b>
                   </h3>
                 </div>
                 <div class="card-body">
@@ -35,7 +35,7 @@
                   <div class="card card-primary card-outline">
                     <div class="card-header">
                       <h3 class="card-title">
-                        Total Amount
+                        <b>Total Amount</b>
                       </h3>
                     </div>
                     <div class="card-body">
@@ -47,7 +47,7 @@
                               <div class="info-box">
                                 <span class="info-box-icon bg-info"><i class="fa fa-fw fa-money" >₹</i></span>
                                 <div class="info-box-content">
-                                  <span class="info-box-text"><?php echo get_field('hrms_type_pay_list',array('id' =>$assume->id),'name')->name?></span>
+                                  <span class="info-box-text"><b><?php echo get_field('hrms_type_pay_list',array('id' =>$assume->id),'name')->name?></b></span>
                                   <span class="info-box-number">₹ <?php echo $assume->amount;?></span>
                                 </div>
                               </div>
@@ -62,7 +62,7 @@
                   <div class="card card-primary card-outline">
                     <div class="card-header">
                       <h3 class="card-title">
-                        Today Total Amount
+                        <b>Today Total Amount</b>
                       </h3>
                     </div>
                     <div class="card-body">
@@ -74,7 +74,7 @@
                               <div class="info-box">
                                 <span class="info-box-icon bg-info"><i class="fa fa-fw fa-money" >₹</i></span>
                                 <div class="info-box-content">
-                                  <span class="info-box-text"><?php echo get_field('hrms_type_pay_list',array('id' =>$assume->id),'name')->name?></span>
+                                  <span class="info-box-text"><b><?php echo get_field('hrms_type_pay_list',array('id' =>$assume->id),'name')->name?></b></span>
                                   <span class="info-box-number">₹ <?php echo $assume->amount;?></span>
                                 </div>
                               </div>
@@ -98,7 +98,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                   <h3 class="card-title">
-                    Information about Total count of types
+                    <b>Information about Total count of types</b>
                   </h3>
                 </div>
                 <div class="card-body">
@@ -106,7 +106,7 @@
                 <div class="">
                     <div class="card-header">
                       <h3 class="card-title">
-                        Total All Count
+                        <b>Total All Count</b>
                       </h3>
                     </div>
                     <div class="card-body">
