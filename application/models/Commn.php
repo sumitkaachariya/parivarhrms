@@ -155,7 +155,7 @@ class Commn extends CI_Model
         $this->db->join('user_membership_plan', 'user_membership_plan.gam_id = gam.id');
         $this->db->where('gam.hrms_user_id',$data['parivar']->id);
         $this->db->group_by("gam.id");
-        $this->db->group_by("gam.name");
+        $this->db->order_by("gam.name");
         return $this->db->get('gam')->result();
     }
 
