@@ -30,12 +30,21 @@ class Dashboard extends CI_Controller {
         if($data['user']->role_id == 3 || $data['user']->role_id == 2){
            $allResult = $Common->total_assume($data,'');
            $todayResult = $Common->total_assume($data,date('y-m-d'));
+           $today_type_count = $Common->total_assume_type_count($data,date('y-m-d'));
+           $all_type_count = $Common->total_assume_type_count($data,'');
         }else{
             $allResult = $Common->admin_total_assume($data,'');
-            $todayResult = $Common->admin_total_assume($data,'');
-        }
+            $todayResult = $Common->admin_total_assume($data,date('y-m-d'));
+            $type_count = $Common->admin_total_assume_type_count($data,'');
+            $today_type_count = $Common->admin_total_assume_type_count($data,date('y-m-d'));
+            $all_type_count = $Common->admin_total_assume_type_count($data,'');
+            // $total_villege_by_count =  $Common->total_villege_by_count($data,'');
+            // echo $this->db->last_query();
+        }   
         $data['total_assume'] = $allResult;
         $data['todayResult'] = $todayResult;
+        $data['today_type_count'] = $today_type_count;
+        $data['all_type_count'] = $all_type_count;
         
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/dashboard',$data);

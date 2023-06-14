@@ -93,17 +93,13 @@ class Commn extends CI_Model
     }
 
     public function custom_result_view(){
-        // $this->db->select_max('percentage');
-        // $this->db->where('std',$std);
-        // $this->db->where('year',date('Y'));
-        // $this->db->limit(3);
-        // return $this->db->get('hrms_member_eduction_list')->result();
 
         $this->db->select('*');
         $this->db->select_max('hrms_member_eduction_list.percentage');
         $this->db->join('hrms_member_eduction_list', 'hrms_member_eduction_list.std = hrms_eduction_list.id');
         $this->db->where('hrms_member_eduction_list.year',date('Y'));
-        $this->db->limit(3);
+        $this->db->group_by("hrms_eduction_list.name");
+        $this->db->limit(10);
         $this->db->get('hrms_eduction_list');
 
         echo $this->db->last_query();
@@ -130,6 +126,41 @@ class Commn extends CI_Model
         $this->db->group_by("hrms_type_pay_list.id");
         return $this->db->get('hrms_type_pay_list')->result(); 
     }
+
+    public function total_assume_type_count($data,$date){
+        $this->db->select('hrms_type_pay_list.id, COUNT(hrms_user_plan.id) AS counting', FALSE);
+        $this->db->join('hrms_user_plan', 'hrms_user_plan.type_pay = hrms_type_pay_list.id');
+        $this->db->where('hrms_user_plan.staff_id',$data['user_id']);
+        $this->db->where('hrms_type_pay_list.hrms_user_id',$data['parivar']->id);
+        if($date != ''){
+            $this->db->where('DATE(hrms_user_plan.created_at)',$date);
+        }
+        $this->db->group_by("hrms_type_pay_list.id");
+        return $this->db->get('hrms_type_pay_list')->result(); 
+    }
+
+    public function admin_total_assume_type_count($data,$date){
+        $this->db->select('hrms_type_pay_list.id, hrms_type_pay_list.name, COUNT(hrms_user_plan.id) AS counting', FALSE);
+        $this->db->join('hrms_user_plan', 'hrms_user_plan.type_pay = hrms_type_pay_list.id');
+        $this->db->where('hrms_type_pay_list.hrms_user_id',$data['parivar']->id);
+        if($date != ''){
+            $this->db->where('DATE(hrms_user_plan.created_at)',$date);
+        }
+        $this->db->group_by("hrms_type_pay_list.id");
+        return $this->db->get('hrms_type_pay_list')->result();        
+    }
+
+    public function total_villege_by_count($data,$date){
+        $this->db->select('gam.id, gam.name, COUNT(user_membership_plan.id) AS counting', FALSE);
+        $this->db->join('user_membership_plan', 'user_membership_plan.gam_id = gam.id');
+        $this->db->where('gam.hrms_user_id',$data['parivar']->id);
+        if($date != ''){
+            $this->db->where('DATE(hrms_user_plan.created_at)',$date);
+        }
+        $this->db->group_by("gam.id");
+        return $this->db->get('gam')->result();
+    }
+
     
     public function get_product($id){
         // `products`.*, `product_variants`.*, `product_variant_options`.*, `skus`.*, `skus_product_variant_options`.*
