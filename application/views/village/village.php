@@ -24,7 +24,7 @@
         
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-md-12 col-12">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Users List</h3>
@@ -32,8 +32,8 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6"><h5><b>Name</b></h5></div>
-                        <div class="col-lg-6"><h5><b>Count</b></h5></div>
+                        <div class="col-lg-6 col-md-6 col-6"><h5><b>Name</b></h5></div>
+                        <div class="col-lg-6 col-md-6 col-6"><h5><b>Count</b></h5></div>
                     </div>
                     <hr>
                     <?php if(isset($villages)){
@@ -41,8 +41,8 @@
                        
                     ?>
                         <div class="row">
-                            <div class="col-lg-6"><b><?php echo $village->name;?></b></div>
-                            <div class="col-lg-6"><b style="color:#ED2C23;">(<?php echo $village->counting;?>)</b></div>
+                            <div class="col-lg-6 col-md-6 col-6"><b><?php echo $village->name;?></b></div>
+                            <div class="col-lg-6 col-md-6 col-6"><b style="color:#ED2C23;">(<?php echo $village->counting;?>)</b></div>
                         </div>
                     <?php }}else{ echo 'Not Found'; }?>
                 </div>
