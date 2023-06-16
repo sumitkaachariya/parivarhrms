@@ -22,14 +22,14 @@
 </li>
 <?php }?>
 <?php if($user->role_id == 1 || $user->role_id == 2){ ?>
-<li class="nav-item">
+<!-- <li class="nav-item">
 <a href="<?php echo site_url('result');?>" class="nav-link <?php  if($segment == 'result'){ echo 'active';}?>">
   <i class="nav-icon fas fa-list-alt"></i>
   <p>
     Result
   </p>
 </a>
-</li>
+</li> -->
 <?php }?>
 <?php if($user->role_id == 1 || $user->role_id == 2){ ?>
 <li class="nav-item">

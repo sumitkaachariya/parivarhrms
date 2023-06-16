@@ -56,6 +56,8 @@ $route['check_auth'] = 'credentials/Login/check_auth';
 
 // Dashboard
 $route['dashboard'] = 'dashboard/Dashboard';
+$route['dashboard/view-more'] = 'dashboard/Dashboard/view_more';    
+
 $route['users'] = 'users/User';
 $route['users/add_user'] = 'users/User/add_user';
 $route['users/save_user'] = 'users/User/save_user';
@@ -68,7 +70,7 @@ $route['subscription/update'] = 'user/Subscription/update_subscription';
 $route['subscription/remark'] = 'user/Subscription/remark';
 $route['subscription/new'] = 'user/Subscription/new';
 $route['subscription/edit'] = 'user/Subscription/edit';
-$route['subscription/update_edu'] = 'user/Subscription/update_edu';
+$route['subscription/update_edu'] = 'user/Subscription/update_edu'; 
 $route['subscription/delete_subscrption_rec'] = 'user/Subscription/delete_subscrption_rec';
 $route['subscription/update_details_subscription'] = 'user/Subscription/update_details_subscription';
 $route['subscription/printview'] = 'user/Subscription/printview';

@@ -91,6 +91,16 @@ class Commn extends CI_Model
         $this->db->where($where);
         return $this->db->get($table)->result();
     }
+    public function order_where_all_records($table,$where,$select,$order_key,$order_type){
+        if(!empty($select)){
+            $this->db->select($select);
+        }
+        if(!empty($order_key)){
+            $this->db->order_by($order_key, $order_type);
+        }
+        $this->db->where($where);
+        return $this->db->get($table)->result();
+    }
 
     public function custom_result_view(){
 

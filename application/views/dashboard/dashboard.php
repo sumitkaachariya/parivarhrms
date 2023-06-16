@@ -47,7 +47,12 @@
                               <div class="info-box">
                                 <span class="info-box-icon bg-info"><i class="fa fa-fw fa-money" >₹</i></span>
                                 <div class="info-box-content">
-                                  <span class="info-box-text"><b><?php echo get_field('hrms_type_pay_list',array('id' =>$assume->id),'name')->name?></b></span>
+                                  <?php if($user->role_id == 3){ 
+                                    $queryString = '?id='.$assume->id.'&gam_id='.$user->gam_id;  
+                                  }else{
+                                    $queryString = '?id='.$assume->id.'&gam_id=all';  
+                                  }?>
+                                  <span class="info-box-text"><a target="_blank" href="<?php echo site_url('dashboard/view-more')?><?php echo $queryString;?>"><b><?php echo get_field('hrms_type_pay_list',array('id' =>$assume->id),'name')->name?></b></a></span>
                                   <span class="info-box-number">₹ <?php echo $assume->amount;?></span>
                                 </div>
                               </div>
