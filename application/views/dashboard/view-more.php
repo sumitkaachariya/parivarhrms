@@ -31,7 +31,7 @@
               <label>Filter</label>
               <input type="hidden" name="id" value="<?php echo @$_GET['id'];?>"> 
             </div>
-            <div class="col-4">
+            <div class="col-lg-4 col-md-4 col-10">
                 <div class="form-group">
                   <?php if(isset($gams)){?>
                     <select class="form-control" name="gam_id">
@@ -43,8 +43,7 @@
                   <?php } ?>
                 </div>
             </div>
-            <div class="col-lg-3">
-                
+            <div class="col-lg-3 col-md-3 col-2">
               <input type="submit" value="Filter" class="btn btn-primary">
             </div>
         </form>

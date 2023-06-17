@@ -103,16 +103,8 @@ class Commn extends CI_Model
     }
 
     public function custom_result_view(){
-
-        $this->db->select('*');
-        $this->db->select_max('hrms_member_eduction_list.percentage');
-        $this->db->join('hrms_member_eduction_list', 'hrms_member_eduction_list.std = hrms_eduction_list.id');
-        $this->db->where('hrms_member_eduction_list.year',date('Y'));
-        $this->db->group_by("hrms_eduction_list.name");
-        $this->db->limit(10);
-        $this->db->get('hrms_eduction_list');
-
-        echo $this->db->last_query();
+        $sql = $this->db->query("SELECT * FROM ( SELECT M.member_name, D.id,D.name AS STD, S.percentage, ML.gam_id, G.name AS gname, DENSE_RANK() OVER( PARTITION BY D.id ORDER BY S.percentage DESC ) RN FROM hrms_eduction_list D INNER JOIN hrms_member_eduction_list S ON D.id = S.std INNER JOIN hrms_member_of_user_home M ON S.home_member_id = M.id INNER JOIN user_membership_plan ML ON S.member_user_id = ML.id INNER JOIN gam G ON ML.gam_id = G.id) A WHERE RN <= 3");
+        return $sql->result();
     }
 
     public function total_assume($data,$date){

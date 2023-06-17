@@ -62,3 +62,30 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting_asc:before
 .card-primary.card-outline{
   border-top: 3px solid #ff0b00;
 }
+
+.filter_card .card-body{
+  padding: 6px 20px;
+}
+.result_card .card-header{
+  background-color: #ed2c23 !important;
+}
+
+label.std_label {
+  font-size: 32px;
+  text-transform: capitalize;
+}
+label.std_label span{
+  color: #ffffff;
+}
+.result_table_title{
+  border-bottom: 1px solid #ed2c23;
+    margin-bottom: 10px;
+}
+.percentage_rank{
+  color: #ed2c23;
+  font-weight: 700;
+}
+.rank{
+  font-weight: 700;
+  color: #ed2c23;
+}
