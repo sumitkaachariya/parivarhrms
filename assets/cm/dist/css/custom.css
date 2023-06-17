@@ -62,7 +62,7 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting_asc:before
 .card-primary.card-outline{
   border-top: 3px solid #ff0b00;
 }
-
+  
 .filter_card .card-body{
   padding: 6px 20px;
 }
