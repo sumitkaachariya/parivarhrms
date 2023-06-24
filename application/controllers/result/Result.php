@@ -33,6 +33,25 @@ class Result extends CI_Controller {
         $this->load->view('result/result',$data);
         $this->load->view('dashboard/footer',$data);
     }
+    public function allresult(){
+        $data = array('');
+        $data['user_id'] = $this->session->userdata('id');
+        $data = $this->return_data();
+        $Common =  new Commn();
+        $data['hrms_eduction_list'] = $Common->where_all_records('hrms_eduction_list', array('hrms_user_id' => $data['parivar']->id),'*');
+        $data['result'] = $Common->custom_all_result_view($data);
+
+        $final_result_arr = array();
+        if(isset($data['result'])){
+            foreach ($data['result'] as $key => $result) {
+                $final_result_arr[$result->id][] =  $result;
+            }
+        }
+        $data['final_result'] = $final_result_arr;
+        $this->load->view('dashboard/header',$data);
+        $this->load->view('result/allresult',$data);
+        $this->load->view('dashboard/footer',$data);
+    }
 
     private function return_data(){
         $data['user_id'] = $this->session->userdata('id');

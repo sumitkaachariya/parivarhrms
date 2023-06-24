@@ -1,5 +1,5 @@
 <?php 
-    $edu_id = $this->input->get('edu_id');
+    $edu_id = $this->input->get('std');
 ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -35,7 +35,7 @@
                 <div class="col-lg-4 col-md-4 col-10">
                     <div class="form-group">
                       <?php if(isset($hrms_eduction_list)){?>
-                        <select class="form-control" name="edu_id">
+                        <select class="form-control" name="std">
                           <option <?php if($edu_id == 'all'){ echo 'selected'; }?> value="all">All</option>
                           <?php foreach ($hrms_eduction_list as $key => $edu) { ?>
                             <option <?php if($edu_id == $edu->id){ echo 'selected'; }?> value="<?php echo $edu->id;?>"><?php echo $edu->name;?></option>
@@ -46,9 +46,6 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-2">
                   <input type="submit" value="Filter" class="btn btn-primary">
-                </div>
-                <div class="col-lg-5 col-md-3 col-12 text-right">
-                  <a href="<?php echo site_url('result/allresult');?>?std=all" class="btn btn-primary">All Result</a>
                 </div>
             </form>
           </div>
@@ -69,7 +66,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row result_table_title">
-                          <div class="col-1 text-center"><label class="result_title">RANK<label></div>
+                          <div class="col-1 text-center"><label class="result_title">S ID<label></div>
                           <div class="col-5"><label class="result_title">NAME<label></div>
                           <div class="col-3 text-center"><label class="result_title">PERCENTAGE<label></div>
                           <div class="col-3 text-center"><label class="result_title">GAM NAME<label></div>
@@ -77,7 +74,7 @@
                         <?php foreach($result as $res){
                         ?>
                           <div class="row">
-                            <div class="col-1 text-center"><span class="rank"><?php echo $res->RN; ?><span></div>
+                            <div class="col-1 text-center"><a target="_blank" href="<?php echo site_url('subscription/new');?>?mobileno=<?php echo $res->mobileno; ?>"><?php echo $res->member_user_id; ?></a></div>
                             <div class="col-5"><?php echo $res->member_name; ?></div>
                             <div class="col-3 text-center"><span class="percentage_rank"><?php echo $res->percentage !=  '' ? $res->percentage : '0'; ?> %</span></div>
                             <div class="col-3 text-center"><?php echo $res->gname; ?></div>
@@ -94,15 +91,16 @@
                     </div>
                     <div class="card-body">
                         <div class="row result_table_title">
-                          <div class="col-1 text-center"><label class="result_title">RANK<label></div>
+                          <div class="col-1 text-center"><label class="result_title">S ID<label></div>
                           <div class="col-5"><label class="result_title">NAME<label></div>
                           <div class="col-3 text-center"><label class="result_title">PERCENTAGE<label></div>
                           <div class="col-3 text-center"><label class="result_title">GAM NAME<label></div>
+                          
                         </div>
                         <?php foreach($result as $res){
                         ?>
                           <div class="row">
-                            <div class="col-1 text-center"><span class="rank"><?php echo $res->RN; ?><span></div>
+                            <div class="col-1 text-center"><a target="_blank" href="<?php echo site_url('subscription/new');?>?mobileno=<?php echo $res->mobileno; ?>"><?php echo $res->member_user_id; ?></a></div>
                             <div class="col-5"><?php echo $res->member_name; ?></div>
                             <div class="col-3 text-center"><span class="percentage_rank"><?php echo $res->percentage !=  '' ? $res->percentage : '0'; ?> %</span></div>
                             <div class="col-3 text-center"><?php echo $res->gname; ?></div>

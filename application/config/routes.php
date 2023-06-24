@@ -81,6 +81,7 @@ $route['village'] = 'village/Village';
 
 
 $route['result'] = 'result/Result';
+$route['result/allresult'] = 'result/Result/allresult';
 $route['notebook'] = 'notebook/Notebook';
 
 $route['settings'] = 'settings/Setting';
