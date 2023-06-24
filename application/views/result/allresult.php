@@ -56,8 +56,9 @@
         	<div class="col-md-12 col-12">
             <div class="row">
               <?php if(isset($final_result)){
-                 $i=1;
+                 
                 foreach ($final_result as $key => $result) {
+                  $i=1;
                 if($edu_id == $key){
               ?>  
                 <div class="col-lg-6 col-12">
@@ -82,7 +83,7 @@
                             <div class="col-3 text-center"><span class="percentage_rank"><?php echo $res->percentage !=  '' ? $res->percentage : '0'; ?> %</span></div>
                             <div class="col-3 text-center"><?php echo $res->gname; ?></div>
                           </div>
-                        <?php } ?>
+                        <?php  $i++; } ?>
                     </div>
                   </div>
                 </div> 
@@ -111,11 +112,11 @@
                             <div class="col-3 text-center"><span class="percentage_rank"><?php echo $res->percentage !=  '' ? $res->percentage : '0'; ?> %</span></div>
                             <div class="col-3 text-center"><?php echo $res->gname; ?></div>
                           </div>
-                        <?php } ?>
+                        <?php  $i++; } ?>
                     </div>
                   </div>
                 </div>      
-              <?php } $i++; }}?>
+              <?php } }}?>
             </div>     		
         	</div>
         </div>
