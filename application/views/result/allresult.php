@@ -56,9 +56,9 @@
         	<div class="col-md-12 col-12">
             <div class="row">
               <?php if(isset($final_result)){
+                 $i=1;
                 foreach ($final_result as $key => $result) {
                 if($edu_id == $key){
-                 $i=1;
               ?>  
                 <div class="col-lg-6 col-12">
                   <div class="card card-info result_card">
@@ -86,8 +86,7 @@
                     </div>
                   </div>
                 </div> 
-              <?php $i++; }elseif($edu_id == 'all'){
-                $i=1;
+              <?php }elseif($edu_id == 'all'){
                 ?>
                 <div class="col-lg-6 col-12">
                   <div class="card card-info result_card">
@@ -116,7 +115,7 @@
                     </div>
                   </div>
                 </div>      
-              <?php $i++; }}}?>
+              <?php } $i++; }}?>
             </div>     		
         	</div>
         </div>
