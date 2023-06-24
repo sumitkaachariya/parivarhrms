@@ -58,6 +58,7 @@
               <?php if(isset($final_result)){
                 foreach ($final_result as $key => $result) {
                 if($edu_id == $key){
+                 $i=1;
               ?>  
                 <div class="col-lg-6 col-12">
                   <div class="card card-info result_card">
@@ -66,16 +67,18 @@
                     </div>
                     <div class="card-body">
                         <div class="row result_table_title">
+                          <div class="col-1 text-center"><label class="result_title">SRNO<label></div>
                           <div class="col-1 text-center"><label class="result_title">S ID<label></div>
-                          <div class="col-5"><label class="result_title">NAME<label></div>
+                          <div class="col-4"><label class="result_title">NAME<label></div>
                           <div class="col-3 text-center"><label class="result_title">PERCENTAGE<label></div>
                           <div class="col-3 text-center"><label class="result_title">GAM NAME<label></div>
                         </div>
                         <?php foreach($result as $res){
                         ?>
                           <div class="row">
+                            <div class="col-1"><?php echo $i;?></div>
                             <div class="col-1 text-center"><a target="_blank" href="<?php echo site_url('subscription/new');?>?mobileno=<?php echo $res->mobileno; ?>"><?php echo $res->member_user_id; ?></a></div>
-                            <div class="col-5"><?php echo $res->member_name; ?></div>
+                            <div class="col-4"><?php echo $res->member_name; ?></div>
                             <div class="col-3 text-center"><span class="percentage_rank"><?php echo $res->percentage !=  '' ? $res->percentage : '0'; ?> %</span></div>
                             <div class="col-3 text-center"><?php echo $res->gname; ?></div>
                           </div>
@@ -83,7 +86,9 @@
                     </div>
                   </div>
                 </div> 
-              <?php }elseif($edu_id == 'all'){?>
+              <?php $i++; }elseif($edu_id == 'all'){
+                $i=1;
+                ?>
                 <div class="col-lg-6 col-12">
                   <div class="card card-info result_card">
                     <div class="card-header">
@@ -91,8 +96,9 @@
                     </div>
                     <div class="card-body">
                         <div class="row result_table_title">
+                          <div class="col-1 text-center"><label class="result_title">SRNO<label></div>
                           <div class="col-1 text-center"><label class="result_title">S ID<label></div>
-                          <div class="col-5"><label class="result_title">NAME<label></div>
+                          <div class="col-4"><label class="result_title">NAME<label></div>
                           <div class="col-3 text-center"><label class="result_title">PERCENTAGE<label></div>
                           <div class="col-3 text-center"><label class="result_title">GAM NAME<label></div>
                           
@@ -100,8 +106,9 @@
                         <?php foreach($result as $res){
                         ?>
                           <div class="row">
+                            <div class="col-1"><?php echo $i;?></div>
                             <div class="col-1 text-center"><a target="_blank" href="<?php echo site_url('subscription/new');?>?mobileno=<?php echo $res->mobileno; ?>"><?php echo $res->member_user_id; ?></a></div>
-                            <div class="col-5"><?php echo $res->member_name; ?></div>
+                            <div class="col-4"><?php echo $res->member_name; ?></div>
                             <div class="col-3 text-center"><span class="percentage_rank"><?php echo $res->percentage !=  '' ? $res->percentage : '0'; ?> %</span></div>
                             <div class="col-3 text-center"><?php echo $res->gname; ?></div>
                           </div>
@@ -109,7 +116,7 @@
                     </div>
                   </div>
                 </div>      
-              <?php }}}?>
+              <?php $i++; }}}?>
             </div>     		
         	</div>
         </div>
