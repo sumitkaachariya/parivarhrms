@@ -117,8 +117,14 @@
                             </div>
                             <div class="col-lg-12 col-12 mt-3">
                              <div class="custom-control custom-checkbox">
-                                <input <?php if($memberlist->present_member == 1){ echo 'checked'; } ?> onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_<?php echo $i;?>" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[<?php echo $memberlist->id;?>][present]" id="sabhy_present_<?php echo $i;?>">
+                                <input <?php if($memberlist->present_member == 1){ echo 'checked'; } ?> onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_<?php echo $i;?>" class="custom-control-input study-custom-input custom-control-input-danger custom-control-input-outline" name="sabhy[<?php echo $memberlist->id;?>][present]" id="sabhy_present_<?php echo $i;?>">
                                 <label class="custom-control-label" for="sabhy_present_<?php echo $i;?>">Present Study Member <?php echo $i;?></label>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-3">
+                             <div class="custom-control custom-checkbox">
+                                <input <?php if($memberlist->is_member == 1){ echo 'checked'; } ?> type="checkbox" value="<?php if($memberlist->is_member == 1){ echo '1';}else{ echo '0'; }?>" data-id="save_sabhy_present_member_<?php echo $i;?>" class="custom-control-input is_member_checkbox custom-control-input-danger custom-control-input-outline" name="sabhy[<?php echo $memberlist->id;?>][present_member]" id="sabhy_present_member_<?php echo $i;?>">
+                                <label class="custom-control-label" for="sabhy_present_member_<?php echo $i;?>">Member Present <?php echo $i;?></label>
                               </div>
                             </div>
                         </div>
@@ -153,7 +159,7 @@
 
 $("#update_details_form").submit(function(e){
   e.preventDefault(); 
-  var data = $("#update_details_form    ").serializeArray();
+  var data = $("#update_details_form").serializeArray();
   var valid = false;
   $(data).each(function(key,value){
 
@@ -189,7 +195,7 @@ $("#total_member").on("keyup", function(){
    var total = $(this).val();
    var html = '';
    total_study_count_member = 0;
-  $("#update_details_form .custom-control-input:checked").each(function(){
+  $("#update_details_form .study-custom-input:checked").each(function(){
     total_study_count_member = (total_study_count_member + 1);
   }); 
    var record_of_total = "<?php echo count($member_list); ?>";
@@ -225,19 +231,32 @@ $("#total_member").on("keyup", function(){
             html += '</select>';
           html += '</div>';
         html += '</div>';
-        html += '<div class="col-lg-12 col-12">';
+        html += '<div class="col-lg-12 col-12 mt-3">';
           html += '<div class="custom-control custom-checkbox">';
-            html += '<input onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_'+num+'" class="custom-control-input custom-control-input-danger custom-control-input-outline" name="sabhy[null][present]" id="sabhy_present_'+num+'">';
+            html += '<input onclick="check_total_study_count_member(this);" type="checkbox" value="1" data-id="save_sabhy_present_'+num+'" class="custom-control-input study-custom-input custom-control-input-danger custom-control-input-outline" name="sabhy[null_'+num+'][present]" id="sabhy_present_'+num+'">';
             html += '<label class="custom-control-label" for="sabhy_present_'+num+'">Present Study Member '+num+'</label>';
           html += '</div>';
         html += '</div>';
+        html += '<div class="col-lg-12 col-12 mt-3">';
+          html += '<div class="custom-control custom-checkbox">';
+            html += '<input type="checkbox" value="1" data-id="save_sabhy_present_member_'+num+'" class="custom-control-input is_member_checkbox custom-control-input-danger custom-control-input-outline" name="sabhy[null_'+num+'][present_member]" id="sabhy_present_member_'+num+'">';
+            html += '<label class="custom-control-label" for="sabhy_present_member_'+num+'">Member Present '+num+'</label>';
+          html += '</div>';
+        html += '</div>';        
       html += '</div><hr>';
     }
    }
    $('.total_member_of_list').html(html);
    all_counting_form(total_study_count_member);
 });
-$("#update_details_form .custom-control-input:checked").each(function(){
+$('.is_member_checkbox').change(function(){
+      if($(this).is(':checked')){
+          $(this).val('1');
+      } else {
+          $(this).val('0');
+      }
+  });
+$("#update_details_form .study-custom-input:checked").each(function(){
     total_study_count_member = (total_study_count_member + 1);
 });
 function check_total_study_count_member(t){

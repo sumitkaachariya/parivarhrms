@@ -54,7 +54,7 @@
                   ?>
                   <tr>
                     <td><?php echo $subscription->id; ?></td>
-                    <td><?php echo $subscription->name; ?></td>
+                    <td><?php echo $subscription->name; ?><br/><?php if($subscription->is_subscriptions == 0){?><span class="btn btn-warning btn-xs">Pending</span><?php } ?></td>
                     <td><?php echo get_field('gam',array('id' => $subscription->gam_id),'name')->name;?></td>
                     <td><?php echo date('d-m-Y',strtotime($subscription->created_at)); ?></td>
                     <td>

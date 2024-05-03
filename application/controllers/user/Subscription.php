@@ -33,6 +33,17 @@ class Subscription extends CI_Controller {
         $Common =  new Commn();
         $data['subscriptions'] = $Common->where_all_records('user_membership_plan',$where,'*');
 
+        if(isset($data['subscriptions'])){
+            foreach($data['subscriptions'] as $subscription){
+                $data['is_subscriptions'] = $Common->where_all_records('hrms_user_plan', array('type_pay' => 1, 'member_user_id' => $subscription->id,'year' => date('Y')),'*');
+                if(!empty($data['is_subscriptions'])){
+                    $subscription->is_subscriptions = 1;
+                }else{
+                    $subscription->is_subscriptions = 0;
+                }
+            }
+        }
+
        
         $this->load->view('dashboard/header',$data);
         $this->load->view('user/subscription',$data);
@@ -52,7 +63,25 @@ class Subscription extends CI_Controller {
             $user_id = $member_user->id;
             $data['member_user'] = $member_user;
             $data['subscriptions'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $user_id),'*');
+            $data['is_subscriptions'] = $Common->where_all_records('hrms_user_plan', array('type_pay' => 1, 'member_user_id' => $user_id,'year' => date('Y')),'*');
             $data['eduction_list'] = $Common->where_all_records('hrms_member_eduction_list', array('member_user_id' => $user_id,'year' => date('Y')),'*');
+            $data['member_list'] = $Common->where_all_records('hrms_member_of_user_home', array('member_user_id' => $user_id),'*');
+
+            if(isset($data['member_list'])){
+                foreach($data['member_list'] as $member){
+                    if(isset($data['eduction_list'])){
+                        foreach($data['eduction_list'] as $edu){
+                            if($member->id == $edu->home_member_id){
+                                if($member->present_member == 1){
+                                    $edu->present_member = 1;
+                                }else{
+                                    $edu->present_member = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
        
         $this->load->view('dashboard/header',$data);
@@ -72,7 +101,7 @@ class Subscription extends CI_Controller {
             $user_id = $member_user->id;
             $data['member_user'] = $member_user;
             $data['subscriptions'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $user_id),'*');
-            $data['user_membership_plan_settings'] = $Common->select_get_row_data('user_membership_plan_settings', array('member_user_id' => $user_id),'*');
+            $data['user_membership_plan_settings'] = $Common->select_get_row_data('user_membership_plan_settings', array('member_user_id' => $user_id,'year' => date('Y')),'*');
             $data['member_list'] = $Common->where_all_records('hrms_member_of_user_home', array('member_user_id' => $user_id),'*');
         }
         $this->load->view('dashboard/header',$data);
@@ -91,7 +120,7 @@ class Subscription extends CI_Controller {
 
         $data['member_user_setting']=  get_field('user_membership_plan_settings',array('member_user_id' =>$data['member_user']->id ,'hrms_user_id' => $data['parivar']->id),'*');
 
-        $data['list_membership'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $data['member_user']->id),'*');
+        $data['list_membership'] = $Common->where_all_records('hrms_user_plan', array('member_user_id' => $data['member_user']->id,'year' => date('Y')),'*');
        
         $data['staff_user']=  get_field('staff_user',array('id' =>  $data['member_user']->hrms_staff_id),'*');
 
@@ -220,6 +249,7 @@ class Subscription extends CI_Controller {
                             'member_age' => $sabhy['age'],
                             'member_edu' => isset($sabhy['std']) ? $sabhy['std'] : null,
                             'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
+                            'is_member' => isset($sabhy['present_member']) ? $sabhy['present_member'] : '',
                             'member_user_id' => $last_member_user_id,
                             'staff_id ' => $current_user,
                             'hrms_user_id ' =>$data['parivar']->id,
@@ -332,6 +362,7 @@ class Subscription extends CI_Controller {
                     'year' => date('Y'),
                     'member_edu' => empty($sabhy['std']) ? null : $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
+                    'is_member' => isset($sabhy['present_member']) ? $sabhy['present_member'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
                     'hrms_user_id ' =>$data['parivar']->id,
@@ -357,6 +388,7 @@ class Subscription extends CI_Controller {
                     'year' => date('Y'),
                     'member_edu' => empty($sabhy['std']) ? null : $sabhy['std'],
                     'present_member' => isset($sabhy['present']) ? $sabhy['present'] : '',
+                    'is_member' => isset($sabhy['present_member']) ? $sabhy['present_member'] : '',
                     'member_user_id' => $member_user->id,
                     'staff_id ' => $member_user->hrms_staff_id,
                     'hrms_user_id ' =>$data['parivar']->id,

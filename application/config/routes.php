@@ -87,6 +87,10 @@ $route['notebook'] = 'notebook/Notebook';
 $route['settings'] = 'settings/Setting';
 $route['settings/google_sheet_token'] = 'settings/Setting/google_sheet_token';
 
+// cronjob
+
+$route['sync'] = 'cron_job/UserCronJob';
+
 $route['logout'] = 'dashboard/Dashboard/logout';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

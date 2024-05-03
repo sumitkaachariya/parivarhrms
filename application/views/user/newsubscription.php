@@ -43,6 +43,14 @@
         
         <?php if(@$_GET['mobileno']){?>
         <div class="row">
+          <?php if(empty($is_subscriptions)){?>
+            <div class="col-12 text-left p-3">
+              <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-exclamation-triangle"></i> Pending!</h5>  
+              </div>
+            </div>
+          <?php } ?>
           <div class="col-12 text-right p-3">
              <button class="btn btn-primary add_subscription_form_btn mb-1">Add Subscription Form</button>
              <?php if(isset($subscriptions)){?>
@@ -254,6 +262,7 @@
                   </thead>
                   <tbody>
                     <?php foreach ($eduction_list as $key => $eduction) { 
+                      if($eduction->present_member == 1){
                       $name = get_field('hrms_member_of_user_home',array('id' =>$eduction->home_member_id),'member_name')->member_name;  
                     ?>
                     <tr class="eduction_parent_row">
@@ -290,7 +299,7 @@
                         <button data-member_user_id="<?php echo $eduction->member_user_id; ?>" data-home_member_id="<?php echo $eduction->home_member_id; ?>" data-id="<?php echo $eduction->id; ?>" class="btn btn-primary update_edu_btn">Update</button>
                       </td>
                     </tr>
-                    <?php }?>
+                    <?php } }?>
                   </tbody>
                 </table>
               </div>
@@ -484,6 +493,12 @@ $("#total_member").on("keyup", function(){
             html += '<label class="custom-control-label" for="sabhy_present_'+i+'">Present Study Member'+i+'</label>';
           html += '</div>';
         html += '</div>';
+        html += '<div class="col-lg-12 col-12 mt-3">';
+          html += '<div class="custom-control custom-checkbox">';
+            html += '<input type="checkbox" value="1" data-id="save_sabhy_present_member_'+i+'" class="custom-control-input is_member_checkbox custom-control-input-danger custom-control-input-outline" name="sabhy['+i+'][present_member]" id="sabhy_present_member_'+i+'">';
+            html += '<label class="custom-control-label" for="sabhy_present_member_'+i+'">Member Present '+i+'</label>';
+          html += '</div>';
+        html += '</div>'; 
       html += '</div><hr>';
     }
    }
