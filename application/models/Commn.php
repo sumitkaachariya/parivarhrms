@@ -104,7 +104,7 @@ class Commn extends CI_Model
 
     public function custom_result_view(){
         $year = date('Y');
-        $sql = $this->db->query("SELECT * FROM ( SELECT M.member_name, D.id,D.name AS STD, S.percentage, ML.gam_id, G.name AS gname, DENSE_RANK() OVER( PARTITION BY D.id ORDER BY S.percentage DESC ) RN FROM hrms_eduction_list D INNER JOIN hrms_member_eduction_list S ON D.id = S.std INNER JOIN hrms_member_of_user_home M ON S.home_member_id = M.id INNER JOIN user_membership_plan ML ON S.member_user_id = ML.id INNER JOIN gam G ON ML.gam_id = G.id WHERE S.year = ".$year.") A WHERE RN <= 3");
+        $sql = $this->db->query("SELECT * FROM ( SELECT M.member_name, D.id,D.name AS STD, S.percentage, ML.gam_id, G.name AS gname, DENSE_RANK() OVER( PARTITION BY D.id ORDER BY S.percentage DESC ) RN FROM hrms_eduction_list D INNER JOIN hrms_member_eduction_list S ON D.id = S.std INNER JOIN hrms_member_of_user_home M ON S.home_member_id = M.id AND M.present_member = 1 INNER JOIN user_membership_plan ML ON S.member_user_id = ML.id INNER JOIN gam G ON ML.gam_id = G.id WHERE S.year = ".$year.") A WHERE RN <= 3");
         return $sql->result();
     }
 
@@ -150,7 +150,7 @@ class Commn extends CI_Model
 
     public function custom_all_result_view( $data){
         $year = date('Y');
-        $sql = $this->db->query("SELECT * FROM ( SELECT M.member_name, D.id,D.name AS STD, S.member_user_id, S.percentage, ML.gam_id, ML.mobileno, G.name AS gname, DENSE_RANK() OVER( PARTITION BY D.id ORDER BY S.percentage ASC ) RN FROM hrms_eduction_list D INNER JOIN hrms_member_eduction_list S ON D.id = S.std INNER JOIN hrms_member_of_user_home M ON S.home_member_id = M.id INNER JOIN user_membership_plan ML ON S.member_user_id = ML.id INNER JOIN gam G ON ML.gam_id = G.id  WHERE S.year = ".$year.") A WHERE RN <= 1000000000");
+        $sql = $this->db->query("SELECT * FROM ( SELECT M.member_name, D.id,D.name AS STD, S.member_user_id, S.percentage, ML.gam_id, ML.mobileno, G.name AS gname, DENSE_RANK() OVER( PARTITION BY D.id ORDER BY S.percentage ASC ) RN FROM hrms_eduction_list D INNER JOIN hrms_member_eduction_list S ON D.id = S.std INNER JOIN hrms_member_of_user_home M ON S.home_member_id = M.id AND M.present_member = 1 INNER JOIN user_membership_plan ML ON S.member_user_id = ML.id INNER JOIN gam G ON ML.gam_id = G.id  WHERE S.year = ".$year.") A WHERE RN <= 1000000000");
         return $sql->result();
 
     }
