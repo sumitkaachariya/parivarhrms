@@ -6,9 +6,14 @@ class Result extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Commn');
-        $id = $this->session->userdata('id');
-        if(empty($id)){
-            redirect('/');
+        $maintenance = maintenance();
+        if($maintenance == 0){
+            $id = $this->session->userdata('id');
+            if(empty($id)){
+                redirect('/');
+            }
+        }else{
+            redirect('maintenance');
         }
     }
 
