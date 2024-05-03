@@ -21,7 +21,6 @@ class Result extends CI_Controller {
 
         $data['result'] = $Common->custom_result_view();
 
-
         $final_result_arr = array();
         if(isset($data['result'])){
             foreach ($data['result'] as $key => $result) {
