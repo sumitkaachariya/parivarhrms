@@ -129,6 +129,24 @@ class Commn extends CI_Model
         return $this->db->get('hrms_type_pay_list')->result(); 
     }
 
+    public function group_by_capitation(){
+        $this->db->select('g.name, COUNT(DISTINCT(p.id)) AS total_person_count');
+        $this->db->from('gam g');
+        $this->db->join('user_membership_plan u', 'g.id = u.gam_id', 'left');
+        $this->db->join('hrms_member_of_user_home p', 'u.id = p.member_user_id');
+        $this->db->group_by('g.id, g.name');
+        return $this->db->get()->result(); 
+    }
+    public function group_by_capitation_(){
+        $this->db->select('g.name, COUNT(DISTINCT(p.id)) AS total_person_count');
+        $this->db->from('hrms_member_of_user_home p');
+        $this->db->join('user_membership_plan u', 'u.id = p.member_user_id');
+        $this->db->join('gam g', 'g.id = u.gam_id', 'left');
+        $this->db->group_by('g.id, g.name');
+        $this->db->order_by('g.name', 'ASC');
+        return $this->db->get()->result(); 
+    }
+
     public function custom_all_result_view( $data){
         $sql = $this->db->query("SELECT * FROM ( SELECT M.member_name, D.id,D.name AS STD, S.member_user_id, S.percentage, ML.gam_id, ML.mobileno, G.name AS gname, DENSE_RANK() OVER( PARTITION BY D.id ORDER BY S.percentage ASC ) RN FROM hrms_eduction_list D INNER JOIN hrms_member_eduction_list S ON D.id = S.std INNER JOIN hrms_member_of_user_home M ON S.home_member_id = M.id INNER JOIN user_membership_plan ML ON S.member_user_id = ML.id INNER JOIN gam G ON ML.gam_id = G.id) A WHERE RN <= 1000000000");
         return $sql->result();

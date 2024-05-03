@@ -43,6 +43,16 @@
 <?php }?>
 <?php if($user->role_id == 1 || $user->role_id == 2){ ?>
 <li class="nav-item">
+<a href="<?php echo site_url('capitation');?>" class="nav-link <?php  if($segment == 'capitation'){ echo 'active';}?>">
+  <i class="nav-icon fas fa-user"></i>
+  <p>
+    capitation
+  </p>
+</a>
+</li>
+<?php }?>
+<?php if($user->role_id == 1 || $user->role_id == 2){ ?>
+<li class="nav-item">
 <a href="<?php echo site_url('notebook');?>" class="nav-link <?php  if($segment == 'notebook'){ echo 'active';}?>">
   <i class="nav-icon fas fa-book"></i>
   <p>

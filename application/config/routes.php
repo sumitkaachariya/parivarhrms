@@ -83,6 +83,7 @@ $route['village'] = 'village/Village';
 $route['result'] = 'result/Result';
 $route['result/allresult'] = 'result/Result/allresult';
 $route['notebook'] = 'notebook/Notebook';
+$route['capitation'] = 'capitation/Capitation';
 
 $route['settings'] = 'settings/Setting';
 $route['settings/google_sheet_token'] = 'settings/Setting/google_sheet_token';
