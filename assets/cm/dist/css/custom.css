@@ -96,7 +96,15 @@ label.std_label span{
 }
 .custom-control-input-danger:checked~.custom-control-label::before{
   border-color: #61CE70;
+  
 }
 .custom-control-input-danger.custom-control-input-outline:checked[type=checkbox]~.custom-control-label::after {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='#61CE70' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !important;
+  background-image: url("https://parivarhrms.jalmitinfotech.com/assets/image/right.svg") !important;
+}
+.custom-control-input-danger:focus:not(:checked)~.custom-control-label::before{
+  box-shadow: inset 0 0 0 transparent, 0 0 0 .2rem #61ce7047;
+  border-color: #61CE70;
+}
+.custom-control-input-danger:focus~.custom-control-label::before{
+  box-shadow: inset 0 0 0 transparent, 0 0 0 .2rem #61ce7047;
 }
