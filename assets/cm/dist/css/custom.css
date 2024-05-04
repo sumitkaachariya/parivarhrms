@@ -108,3 +108,6 @@ label.std_label span{
 .custom-control-input-danger:focus~.custom-control-label::before{
   box-shadow: inset 0 0 0 transparent, 0 0 0 .2rem #61ce7047;
 }
+div.dataTables_wrapper div.dataTables_paginate ul.pagination{
+  overflow:auto;
+}
