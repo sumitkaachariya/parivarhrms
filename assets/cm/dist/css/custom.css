@@ -111,3 +111,6 @@ label.std_label span{
 div.dataTables_wrapper div.dataTables_paginate ul.pagination{
   overflow:auto;
 }
+.table-striped tbody tr:nth-of-type(odd){
+  background-color: #61ce701c;
+}
