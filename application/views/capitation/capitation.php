@@ -57,7 +57,7 @@
 
   </div>
   <style>
-    .info-box .color-red{background-color:#ED2C23 !important;}
+    .info-box .color-red{background-color:#61CE70 !important;}
     .info-box .color-red i{color:#fff;}
   </style>
   <!-- /.content-wrapper -->

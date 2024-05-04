@@ -42,7 +42,7 @@
                     ?>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-6"><b><?php echo $village->name;?></b></div>
-                            <div class="col-lg-6 col-md-6 col-6"><b style="color:#ED2C23;">(<?php echo $village->counting;?>)</b></div>
+                            <div class="col-lg-6 col-md-6 col-6"><b style="color:#61CE70;">(<?php echo $village->counting;?>)</b></div>
                         </div>
                     <?php }}else{ echo 'Not Found'; }?>
                 </div>
