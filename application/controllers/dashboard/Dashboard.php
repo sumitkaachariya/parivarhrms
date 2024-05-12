@@ -68,7 +68,7 @@ class Dashboard extends CI_Controller {
                 foreach ($data['getData'] as $key => $type_val) {
                     $staff_name = get_field('staff_user',array('id' => $type_val->staff_id),'name')->name;
                     $total_amount = $type_val->total_amount;
-                    $member_name = get_field('user_membership_plan',array('id' => $type_val->member_user_id),'name')->name;
+                    $member_name = get_field('user_membership_plan',array('id' => $type_val->member_user_id,'year' => date('Y')),'name')->name;
                     $member_gam_id = $data['user']->gam_id;
                     $gam_name = get_field('gam',array('id' => $member_gam_id),'name')->name;
                     $arr = array(
@@ -90,7 +90,7 @@ class Dashboard extends CI_Controller {
                     $staff_name = get_field('staff_user',array('id' => $type_val->staff_id),'name')->name;
                     $total_amount = $type_val->total_amount;
                     $member_name = get_field('user_membership_plan',array('id' => $type_val->member_user_id),'name')->name;
-                    $member_gam_id = $Common->select_get_row_data('user_membership_plan', array('id'=> $type_val->member_user_id),'gam_id');
+                    $member_gam_id = $Common->select_get_row_data('user_membership_plan', array('id'=> $type_val->member_user_id,'year' => date('Y')),'gam_id');
                     $gam_name = get_field('gam',array('id' => $member_gam_id->gam_id),'name')->name;              
                     $arr = array(
                         'gam_id' => $member_gam_id->gam_id,
