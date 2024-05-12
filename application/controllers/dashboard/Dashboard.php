@@ -63,7 +63,7 @@ class Dashboard extends CI_Controller {
        
         $data['get_all'] = array();
         if($data['user']->role_id == 3){
-            $data['getData'] = $Common->where_all_records('hrms_user_plan',array('type_pay' => $id,'staff_id' =>  $data['user']->id),'*');
+            $data['getData'] = $Common->where_all_records('hrms_user_plan',array('type_pay' => $id,'staff_id' =>  $data['user']->id, 'year' =>  date('Y')),'*');
             if(isset($data['getData'])){
                 foreach ($data['getData'] as $key => $type_val) {
                     $staff_name = get_field('staff_user',array('id' => $type_val->staff_id),'name')->name;
