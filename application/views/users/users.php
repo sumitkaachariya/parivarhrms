@@ -51,9 +51,10 @@
                 
                   <?php if(isset($users)){
                     foreach ($users as $key => $user) {
+                    $total_count_subscription = get_total_count_subscription('hrms_user_plan',array('staff_id' =>$user->id,'year' => date('Y')),'*');
                   ?>
                   <tr>
-                    <td><?php echo $user->name; ?></td>
+                    <td><?php echo $user->name; ?><br /><span class="btn btn-warning btn-xs">Total Subscription: (<?php echo count($total_count_subscription); ?>)</span></td>
                     <td><?php echo get_field('gam',array('id' =>$user->gam_id),'name')->name; ?></td>
                     <td><?php echo $user->mobileno; ?></td>
                     <td>
