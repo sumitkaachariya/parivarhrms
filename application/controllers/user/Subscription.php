@@ -124,8 +124,21 @@ class Subscription extends CI_Controller {
        
         $data['staff_user']=  get_field('staff_user',array('id' =>  $data['member_user']->hrms_staff_id),'*');
 
-       
+        $data['print_date'] = date('d-m-y');
 
+        if($data['list_membership']){
+            foreach($data['list_membership'] as $membership){
+                if($membership->type_pay == 1){
+                    $data['print_date'] = date('d-m-y', strtotime($membership->created_at));
+                }else if($membership->type_pay == 2){
+                    $data['print_date'] = date('d-m-y', strtotime($membership->created_at));
+                }else if($membership->type_pay == 3){
+                    $data['print_date'] = date('d-m-y', strtotime($membership->created_at));
+                }else if($membership->type_pay == 4){
+                    $data['print_date'] = date('d-m-y', strtotime($membership->created_at));
+                }
+            }
+        }
         $amount = array(
             'varshik_lavajam' => 0,
             'danbhet' => 0,

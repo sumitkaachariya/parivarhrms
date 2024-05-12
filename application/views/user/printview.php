@@ -21,7 +21,7 @@
     <table class="heading_table" cellpadding="5">
         <tr>
             <td><b>Date:</b></td>
-            <td><b><?php echo date('d-m-y', strtotime($member_user->created_at));?></b></td>
+            <td><b><?php echo $print_date;?></b></td>
             <td width="400px"></td>
             <td><b>Sr no:</b></td>
             <td><b><?php echo $member_user->id;?></b></td>
