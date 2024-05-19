@@ -51,6 +51,14 @@
 </a>
 </li>
 <?php }?>
+<li class="nav-item">
+  <a href="<?php echo site_url('business');?>" class="nav-link <?php  if($segment == 'business'){ echo 'active';}?>">
+    <i class="nav-icon fas fa-briefcase"></i>
+    <p> 
+    business
+    </p>
+  </a>
+</li>
 <?php if($user->role_id == 1 || $user->role_id == 2){ ?>
 <li class="nav-item">
 <a href="<?php echo site_url('notebook');?>" class="nav-link <?php  if($segment == 'notebook'){ echo 'active';}?>">
