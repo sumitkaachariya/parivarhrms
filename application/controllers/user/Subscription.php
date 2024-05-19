@@ -36,15 +36,19 @@ class Subscription extends CI_Controller {
         if(isset($data['subscriptions'])){
             foreach($data['subscriptions'] as $subscription){
                 $data['is_subscriptions'] = $Common->where_all_records('hrms_user_plan', array('type_pay' => 1, 'member_user_id' => $subscription->id,'year' => date('Y')),'*');
+                
                 if(!empty($data['is_subscriptions'])){
                     $subscription->is_subscriptions = 1;
+                    if($data['is_subscriptions'][0]){
+
+                        $subscription->staff_name = $Common->select_get_row_data('staff_user',array('id'=>$data['is_subscriptions'][0]->staff_id),'name');
+                    }
                 }else{
                     $subscription->is_subscriptions = 0;
+                    $subscription->staff_name = '';
                 }
             }
         }
-
-       
         $this->load->view('dashboard/header',$data);
         $this->load->view('user/subscription',$data);
         $this->load->view('dashboard/footer',$data);
