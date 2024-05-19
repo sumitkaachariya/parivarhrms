@@ -79,6 +79,10 @@ $route['subscription/submit_subscription'] = 'user/Subscription/submit_subscript
 
 $route['village'] = 'village/Village';
 
+$route['business'] = 'business/Business';
+$route['business/new'] = 'business/Business/new';
+$route['business/save'] = 'business/Business/save';
+
 
 $route['result'] = 'result/Result';
 $route['result/allresult'] = 'result/Result/allresult';
